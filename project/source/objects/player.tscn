@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://source/objects/player_sprite.gd" id="3_76au5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxt16"]
-radius = 3.0
-height = 8.0
+radius = 2.5
+height = 7.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5d6pf"]
 atlas = ExtResource("2_rxy1i")
@@ -176,7 +176,7 @@ animations = [{
 script = ExtResource("1_le4c2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+position = Vector2(0, 0.5)
 shape = SubResource("CapsuleShape2D_kxt16")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

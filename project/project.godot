@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Programming Tutorial"
-run/main_scene="res://source/levels/level1.tscn"
+run/main_scene="res://source/levels/level_1.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+World="*res://source/framework/world.gd"
 
 [display]
 

@@ -1,5 +1,6 @@
 class_name CustomCharacter
 extends CharacterBody2D
+## Base character class.
 
 ## Signal emitted when the character jumps.
 signal character_jumped(character: CustomCharacter)
@@ -32,6 +33,7 @@ const _SPAWN_FLOOR_TEST_DISTANCE = 5.0
 var _was_grounded := false
 var _gravity_scale := 1.0
 var _facing_left := false
+var _last_teleport_timestamp := 0
 
 func _ready() -> void:
 	call_deferred("_deferred_ready")
@@ -124,6 +126,18 @@ func _jump() -> void:
 func _landed() -> void:
 	_gravity_scale = 1.0
 	character_landed.emit(self)
+
+## Teleports to the given position.
+func teleport(pos: Vector2) -> void:
+	_last_teleport_timestamp = Time.get_ticks_msec()
+	global_position = pos
+
+## Determines if this character has teleported within the given time window.
+func has_recently_teleported(time_window: int) -> bool:
+	if _last_teleport_timestamp == 0:
+		return false
+	var time_since_teleport = Time.get_ticks_msec() - _last_teleport_timestamp
+	return time_since_teleport < time_window
 
 ## Gets the gravity vector, with the current gravity scale applied.
 func _get_scaled_gravity() -> Vector2:
