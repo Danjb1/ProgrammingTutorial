@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5sa7d7ioot5g"]
+
+[ext_resource type="Script" path="res://source/objects/auto_camera.gd" id="1_jpcto"]
+
+[node name="AutoCamera" type="Camera2D"]
+script = ExtResource("1_jpcto")

@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://b25c5ux53rlrp"]
+
+[ext_resource type="Texture2D" uid="uid://uubhvhoj1mfw" path="res://assets/book.png" id="1_pjtyh"]
+[ext_resource type="Script" path="res://source/objects/book.gd" id="1_xumby"]
+[ext_resource type="Texture2D" uid="uid://c7ahjdknf56tu" path="res://assets/sparkle.png" id="2_nfntf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k45uc"]
+size = Vector2(12, 14)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xe708"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_ys8rb"]
+_data = [Vector2(0, 0.498322), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xihm0"]
+curve = SubResource("Curve_ys8rb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a0g0u"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 6.0
+emission_ring_inner_radius = 4.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.5
+gravity = Vector3(0, 0, 0)
+scale_min = 8.0
+scale_max = 8.0
+color = Color(1, 0.988235, 0.768627, 1)
+alpha_curve = SubResource("CurveTexture_xihm0")
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+
+[node name="Book" type="Area2D"]
+scale = Vector2(8, 8)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_xumby")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_pjtyh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_k45uc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_mode = 3
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_xe708")
+position = Vector2(0, -0.75)
+process_material = SubResource("ParticleProcessMaterial_a0g0u")
+texture = ExtResource("2_nfntf")
