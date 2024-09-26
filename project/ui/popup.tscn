@@ -1,0 +1,122 @@
+[gd_scene load_steps=6 format=3 uid="uid://1ij4ouu2fu8o"]
+
+[ext_resource type="Script" path="res://ui/popup.gd" id="1_cuwk0"]
+[ext_resource type="Texture2D" uid="uid://d2t6hgccl0yeq" path="res://textures/popup.png" id="1_i0vmt"]
+
+[sub_resource type="Animation" id="Animation_xc74y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScaledPixelContainer/ScaledPixelMarginContainer/NinePatchRect:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(80, 40)]
+}
+
+[sub_resource type="Animation" id="Animation_o673t"]
+resource_name = "in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScaledPixelContainer/ScaledPixelMarginContainer/NinePatchRect:custom_minimum_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(75, 36)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_show_content"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w0vtt"]
+_data = {
+"RESET": SubResource("Animation_xc74y"),
+"in": SubResource("Animation_o673t")
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_cuwk0")
+
+[node name="ScaledPixelContainer" type="CenterContainer" parent="."]
+editor_description = "CenterContainer that uses 8x scale so that its contents are rendered extra chunky."
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1680.0
+offset_bottom = -945.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(8, 8)
+
+[node name="ScaledPixelMarginContainer" type="MarginContainer" parent="ScaledPixelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_bottom = 24
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ScaledPixelContainer/ScaledPixelMarginContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+texture = ExtResource("1_i0vmt")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 5
+patch_margin_bottom = 5
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="ScreenPixelContainer" type="CenterContainer" parent="."]
+editor_description = "CenterContainer that uses a regular scale so that its contents are rendered using screen pixels."
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenPixelMarginContainer" type="MarginContainer" parent="ScreenPixelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_bottom = 192
+
+[node name="ContentContainer" type="MarginContainer" parent="ScreenPixelContainer/ScreenPixelMarginContainer"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ReferenceRect" type="ReferenceRect" parent="ScreenPixelContainer/ScreenPixelMarginContainer/ContentContainer"]
+editor_description = "Untick \"Editor Only\" to preview the bounds of the ContentContainer in-game."
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_w0vtt")
+}
+autoplay = "in"
+playback_auto_capture = false

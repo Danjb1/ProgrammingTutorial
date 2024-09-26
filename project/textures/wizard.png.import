@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cafbxa0qq1nff"
-path="res://.godot/imported/castle_bg_tileset.png-0291538ee678347218b9b2a5656b0f44.ctex"
+uid="uid://w0a25ew2c2gy"
+path="res://.godot/imported/wizard.png-8b4eb57cb7ea61be3f74b1456fa1dc06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/castle_bg_tileset.png"
-dest_files=["res://.godot/imported/castle_bg_tileset.png-0291538ee678347218b9b2a5656b0f44.ctex"]
+source_file="res://textures/wizard.png"
+dest_files=["res://.godot/imported/wizard.png-8b4eb57cb7ea61be3f74b1456fa1dc06.ctex"]
 
 [params]
 

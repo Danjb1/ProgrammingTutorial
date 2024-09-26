@@ -1,8 +1,8 @@
 [gd_scene load_steps=24 format=3 uid="uid://bqw1g0yoe1ga7"]
 
-[ext_resource type="Script" path="res://source/objects/player.gd" id="1_le4c2"]
-[ext_resource type="Texture2D" uid="uid://w0a25ew2c2gy" path="res://assets/wizard.png" id="2_rxy1i"]
-[ext_resource type="Script" path="res://source/objects/player_sprite.gd" id="3_76au5"]
+[ext_resource type="Script" path="res://objects/player.gd" id="1_le4c2"]
+[ext_resource type="Texture2D" uid="uid://w0a25ew2c2gy" path="res://textures/wizard.png" id="2_rxy1i"]
+[ext_resource type="Script" path="res://objects/player_sprite.gd" id="3_76au5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxt16"]
 radius = 2.5

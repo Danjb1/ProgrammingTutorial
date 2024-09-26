@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=4 uid="uid://bp0fp15j5ioad"]
 
-[ext_resource type="TileSet" uid="uid://cvwie65psn1mi" path="res://source/resources/castle_bg_tile_set.tres" id="1_k8lb0"]
-[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://source/resources/castle_tile_set.tres" id="2_f84sq"]
-[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://source/objects/player.tscn" id="3_wuvnb"]
-[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://source/objects/auto_camera.tscn" id="4_okccv"]
-[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://source/objects/door.tscn" id="4_v4tf5"]
+[ext_resource type="TileSet" uid="uid://cvwie65psn1mi" path="res://resources/castle_bg_tile_set.tres" id="1_k8lb0"]
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://resources/castle_tile_set.tres" id="2_f84sq"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://objects/player.tscn" id="3_wuvnb"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="4_okccv"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="4_v4tf5"]
 
 [node name="LevelRoot" type="Node2D"]
 
@@ -28,5 +28,5 @@ scale = Vector2(8, 8)
 
 [node name="Door1" parent="." instance=ExtResource("4_v4tf5")]
 position = Vector2(-608, 224)
-target_level = "res://source/levels/level_1.tscn"
+target_level = "res://levels/level_1.tscn"
 target_entrance = "Door"

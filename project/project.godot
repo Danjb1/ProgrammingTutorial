@@ -11,18 +11,18 @@ config_version=5
 [application]
 
 config/name="Programming Tutorial"
-run/main_scene="res://source/levels/level_1.tscn"
+run/main_scene="res://levels/level_1.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-World="*res://source/framework/world.gd"
+World="*res://framework/world.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/resizable=false
 window/size/window_width_override=1920
 window/size/window_height_override=1080

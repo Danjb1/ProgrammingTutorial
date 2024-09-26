@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=4 uid="uid://d1dskw2d3weob"]
 
-[ext_resource type="TileSet" uid="uid://cvwie65psn1mi" path="res://source/resources/castle_bg_tile_set.tres" id="1_7c1ds"]
-[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://source/resources/castle_tile_set.tres" id="2_cpd6m"]
-[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://source/objects/player.tscn" id="3_r5ynm"]
-[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://source/objects/auto_camera.tscn" id="4_hsb65"]
-[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://source/objects/door.tscn" id="4_y0dqi"]
-[ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://source/objects/book.tscn" id="6_k6ngw"]
+[ext_resource type="TileSet" uid="uid://cvwie65psn1mi" path="res://resources/castle_bg_tile_set.tres" id="1_82hr5"]
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://resources/castle_tile_set.tres" id="2_53nmd"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="3_to8t0"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="4_tsdf6"]
+[ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="5_sbbit"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://objects/player.tscn" id="6_jg55j"]
 
 [node name="LevelRoot" type="Node2D"]
 
@@ -13,24 +13,25 @@
 texture_filter = 1
 scale = Vector2(8, 8)
 tile_map_data = PackedByteArray("AAD5/wAAAAAAAAAAAAD5/wEAAAAAAAEAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAEAAAADAAAAAAAAAAAAAAADAAEAAAAAAAEAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAEAAAA=")
-tile_set = ExtResource("1_7c1ds")
+tile_set = ExtResource("1_82hr5")
 
 [node name="ForegroundTiles" type="TileMapLayer" parent="."]
 texture_filter = 1
 scale = Vector2(8, 8)
 tile_map_data = PackedByteArray("AAD2/wUAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAD//wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAP//AAAAAAAAAAAJAP7/AAAAAAAAAAAJAP3/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPr/AAAAAAAAAAAIAPr/AAAAAAAAAAAHAPr/AAAAAAAAAAAGAPr/AAAAAAAAAAAFAPr/AAAAAAAAAAAEAPr/AAAAAAAAAAADAPr/AAAAAAAAAAACAPr/AAAAAAAAAAABAPr/AAAAAAAAAAAAAPr/AAAAAAAAAAD///r/AAAAAAAAAAD+//r/AAAAAAAAAAD9//r/AAAAAAAAAAD8//r/AAAAAAAAAAD7//r/AAAAAAAAAAD6//r/AAAAAAAAAAD5//r/AAAAAAAAAAD4//r/AAAAAAAAAAD3//r/AAAAAAAAAAD2//r/AAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD2//3/AAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAADAAAAAAD2/wMAAAADAAAAAAD2/wQAAAAAAAAAAAD3/wQAAAACAAAAAAD4/wQAAAACAAAAAAD5/wQAAAACAAAAAAD6/wQAAAACAAAAAAD7/wQAAAACAAAAAAD8/wQAAAACAAAAAAD9/wQAAAACAAAAAAD+/wQAAAACAAAAAAD//wQAAAACAAAAAAAAAAQAAAACAAAAAAABAAQAAAACAAAAAAACAAQAAAACAAAAAAADAAQAAAACAAAAAAAEAAQAAAACAAAAAAAFAAQAAAACAAAAAAAGAAQAAAACAAAAAAAHAAQAAAACAAAAAAAIAAQAAAACAAAAAAAJAAQAAAACAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAALAAIAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAAKAAQAAAACAAAAAAAKAAUAAAAAAAAAAAALAAUAAAAAAAAAAAA=")
-tile_set = ExtResource("2_cpd6m")
+tile_set = ExtResource("2_53nmd")
 
-[node name="AutoCamera" parent="." instance=ExtResource("4_hsb65")]
+[node name="AutoCamera" parent="." instance=ExtResource("3_to8t0")]
 
-[node name="Door" parent="." instance=ExtResource("4_y0dqi")]
+[node name="Door" parent="." instance=ExtResource("4_tsdf6")]
 position = Vector2(672, 224)
-target_level = "res://source/levels/level_2.tscn"
+target_level = "res://levels/level_2.tscn"
 target_entrance = "Door1"
 
-[node name="Book" parent="." instance=ExtResource("6_k6ngw")]
+[node name="Book" parent="." instance=ExtResource("5_sbbit")]
 position = Vector2(321, 193)
+text = "[center]Hello world![/center]"
 
-[node name="Player" parent="." instance=ExtResource("3_r5ynm")]
+[node name="Player" parent="." instance=ExtResource("6_jg55j")]
 position = Vector2(0, 224)
 scale = Vector2(8, 8)

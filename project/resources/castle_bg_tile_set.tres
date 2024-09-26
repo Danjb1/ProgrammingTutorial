@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://cvwie65psn1mi"]
 
-[ext_resource type="Texture2D" uid="uid://cafbxa0qq1nff" path="res://assets/castle_bg_tileset.png" id="1_kb8av"]
+[ext_resource type="Texture2D" uid="uid://cafbxa0qq1nff" path="res://textures/castle_bg_tileset.png" id="1_kb8av"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uma5o"]
 resource_name = "castle_bg"

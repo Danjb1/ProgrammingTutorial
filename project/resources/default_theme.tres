@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c1327dwioq8wd"]
+
+[ext_resource type="FontFile" uid="uid://dmq6mlnlqpw3w" path="res://resources/font_monospaced.tres" id="1_o7tvw"]
+
+[resource]
+default_font = ExtResource("1_o7tvw")

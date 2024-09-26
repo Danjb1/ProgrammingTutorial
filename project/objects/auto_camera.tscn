@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://5sa7d7ioot5g"]
 
-[ext_resource type="Script" path="res://source/objects/auto_camera.gd" id="1_jpcto"]
+[ext_resource type="Script" path="res://objects/auto_camera.gd" id="1_jpcto"]
 
 [node name="AutoCamera" type="Camera2D"]
+zoom = Vector2(1.5, 1.5)
 script = ExtResource("1_jpcto")

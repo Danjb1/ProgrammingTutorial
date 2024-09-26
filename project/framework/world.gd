@@ -1,6 +1,9 @@
 extends Node
 ## Autoload class that handles level transitions.
 
+## Size that levels are built to.
+const SIZE = Vector2(1280, 720)
+
 var _player: PlayerCharacter
 
 var _loaded_level: Node
