@@ -54,7 +54,7 @@ _data = {
 "in": SubResource("Animation_o673t")
 }
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="PopupLayer" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_cuwk0")
 
@@ -103,6 +103,7 @@ theme_override_constants/margin_bottom = 192
 [node name="ContentContainer" type="MarginContainer" parent="ScreenPixelContainer/ScreenPixelMarginContainer"]
 unique_name_in_owner = true
 clip_contents = true
+custom_minimum_size = Vector2(80, 50)
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4

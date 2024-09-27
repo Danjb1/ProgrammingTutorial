@@ -1,19 +1,28 @@
 extends Interactable
 
+const _TEXT_DISPLAY_RESOURCE = preload("res://ui/text_display.tscn")
+
 @export var popup_size := Vector2(80, 40)
-@export var text: String
+@export_multiline var text: String
+
+var _text_display: RichTextLabel
 
 func interact() -> void:
 	get_tree().paused = true
 	_show_popup()
 
 func _show_popup() -> void:
-	var popup_content := RichTextLabel.new()
-	popup_content.bbcode_enabled = true
-	popup_content.text = text
-	popup_content.autowrap_mode = TextServer.AUTOWRAP_OFF
-	# These 2 properties are used to vertically center the text
-	popup_content.fit_content = true
-	popup_content.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	var popup := PopupBox.create(popup_size, popup_content)
+	_text_display = _TEXT_DISPLAY_RESOURCE.instantiate()
+	_text_display.text = text
+	_text_display.center_vertical()
+	var popup := PopupBox.create(popup_size, _text_display)
+	popup.opened.connect(_on_popup_opened)
 	get_tree().root.add_child(popup)
+
+func _on_popup_opened() -> void:
+	# We wait until the pop-up has reached its full width before enabling text wrapping. If we
+	# enable text wrapping straight away then it becomes impossible to vertically center the text,
+	# because when the popup is very small the text will be forced into a very long column.
+	_text_display.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# We have to re-center now that the size may have changed
+	_text_display.center_vertical()

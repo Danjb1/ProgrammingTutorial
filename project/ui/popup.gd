@@ -2,6 +2,12 @@ class_name PopupBox
 extends CanvasLayer
 ## Pop-up that pauses the game while active.
 
+## Signal emitted when the pop-up open animation finishes.
+signal opened
+
+## Signal emitted when the pop-up starts to close.
+signal close_requested
+
 const _POPUP_RESOURCE := preload("res://ui/popup.tscn")
 const _SIZE_ANIM_TRACK_ID := 0
 const _SIZE_ANIM_LAST_KEY_ID := 1
@@ -32,6 +38,7 @@ static func create(p_desired_size: Vector2, p_content: Control) -> PopupBox:
 func _ready() -> void:
 	_init_offset()
 	_init_anim()
+	_anim_player.animation_finished.connect(_on_open_anim_finished)
 
 func _init_offset() -> void:
 	var left: int = min(-offset_from_center.x, 0)
@@ -53,6 +60,10 @@ func _init_anim() -> void:
 	var in_anim = _anim_player.get_animation("in")
 	var sanitized_size = _get_sanitized_size(desired_size)
 	in_anim.track_set_key_value(_SIZE_ANIM_TRACK_ID, _SIZE_ANIM_LAST_KEY_ID, sanitized_size)
+
+func _on_open_anim_finished(_anim_name: StringName) -> void:
+	_anim_player.animation_finished.disconnect(_on_open_anim_finished)
+	opened.emit()
 
 ## Gets the pop-up size closest to the given size that avoids cut-off textures.
 func _get_sanitized_size(in_size: Vector2) -> Vector2:
@@ -91,8 +102,10 @@ func _close_popup() -> void:
 		return
 	_anim_player.play_backwards("in")
 	_anim_player.animation_finished.connect(_on_close_anim_finished)
+	close_requested.emit()
 
 func _on_close_anim_finished(_anim_name: StringName) -> void:
+	_anim_player.animation_finished.disconnect(_on_close_anim_finished)
 	get_tree().paused = false
 	queue_free()
 

@@ -30,7 +30,7 @@ target_entrance = "Door1"
 
 [node name="Book" parent="." instance=ExtResource("5_sbbit")]
 position = Vector2(321, 193)
-text = "[center]Hello world![/center]"
+text = "[center]Welcome to my very first programming tutorial![/center]"
 
 [node name="Player" parent="." instance=ExtResource("6_jg55j")]
 position = Vector2(0, 224)
