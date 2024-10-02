@@ -17,6 +17,7 @@ func _show_popup() -> void:
 	_text_display.center_vertical()
 	var popup := PopupBox.create(popup_size, _text_display)
 	popup.opened.connect(_on_popup_opened)
+	popup.close_requested.connect(_on_popup_close_requested)
 	get_tree().root.add_child(popup)
 
 func _on_popup_opened() -> void:
@@ -26,3 +27,6 @@ func _on_popup_opened() -> void:
 	_text_display.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	# We have to re-center now that the size may have changed
 	_text_display.center_vertical()
+
+func _on_popup_close_requested() -> void:
+	_text_display.autowrap_mode = TextServer.AUTOWRAP_OFF

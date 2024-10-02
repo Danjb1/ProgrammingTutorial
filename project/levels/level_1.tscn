@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://d1dskw2d3weob"]
 
-[ext_resource type="TileSet" uid="uid://cvwie65psn1mi" path="res://resources/castle_bg_tile_set.tres" id="1_82hr5"]
-[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://resources/castle_tile_set.tres" id="2_53nmd"]
+[ext_resource type="TileSet" uid="uid://cvwie65psn1mi" path="res://tilesets/castle_bg_tile_set.tres" id="1_82hr5"]
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="2_53nmd"]
 [ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="3_to8t0"]
 [ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="4_tsdf6"]
 [ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="5_sbbit"]
@@ -24,13 +24,14 @@ tile_set = ExtResource("2_53nmd")
 [node name="AutoCamera" parent="." instance=ExtResource("3_to8t0")]
 
 [node name="Door" parent="." instance=ExtResource("4_tsdf6")]
-position = Vector2(672, 224)
+position = Vector2(688, 224)
 target_level = "res://levels/level_2.tscn"
 target_entrance = "Door1"
 
 [node name="Book" parent="." instance=ExtResource("5_sbbit")]
-position = Vector2(321, 193)
-text = "[center]Welcome to my very first programming tutorial![/center]"
+position = Vector2(320, 192)
+popup_size = Vector2(45, 30)
+text = "[center]Welcome![/center]"
 
 [node name="Player" parent="." instance=ExtResource("6_jg55j")]
 position = Vector2(0, 224)
