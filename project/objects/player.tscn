@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bqw1g0yoe1ga7"]
+[gd_scene load_steps=33 format=3 uid="uid://bqw1g0yoe1ga7"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_le4c2"]
 [ext_resource type="Texture2D" uid="uid://w0a25ew2c2gy" path="res://textures/wizard.png" id="2_rxy1i"]
@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://c5sd64kvw8die" path="res://sounds/footstep_4.ogg" id="7_anrav"]
 [ext_resource type="AudioStream" uid="uid://diapy2o0iyqwb" path="res://sounds/footstep_5.ogg" id="8_w5tqf"]
 [ext_resource type="AudioStream" uid="uid://cfdbry41y6jdw" path="res://sounds/footstep_6.ogg" id="9_cokjm"]
+[ext_resource type="AudioStream" uid="uid://ce1vd01djjqbk" path="res://sounds/jump.ogg" id="10_5eww7"]
+[ext_resource type="AudioStream" uid="uid://mb8e5dvmec76" path="res://sounds/land.ogg" id="10_v7weh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxt16"]
 radius = 2.5
@@ -209,3 +211,11 @@ script = ExtResource("3_76au5")
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_6ab68")
 volume_db = -4.0
+
+[node name="JumpAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_5eww7")
+
+[node name="LandAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_v7weh")

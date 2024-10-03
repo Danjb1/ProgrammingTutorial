@@ -94,9 +94,31 @@ func _move() -> void:
 		var collision = get_last_slide_collision()
 		_process_collision(collision)
 
-func _process_collision(_collision: KinematicCollision2D) -> void:
+func _process_collision(collision: KinematicCollision2D) -> void:
+	var tilemap := collision.get_collider() as TileMapLayer
+	if tilemap:
+		var tile_coords := tilemap.get_coords_for_body_rid(collision.get_collider_rid())
+		var tile_data := tilemap.get_cell_tile_data(tile_coords)
+		_process_tile_collision(collision, tile_coords, tile_data)
 	if is_on_floor() and not _was_grounded:
 		_landed()
+
+func _process_tile_collision(
+		_collision: KinematicCollision2D,
+		_tile_coords: Vector2i,
+		tile_data: TileData) -> bool:
+	if tile_data.get_custom_data("instakill") as bool:
+		_suppress_landing()
+		kill()
+		return true
+	return false
+
+func _suppress_landing() -> void:
+	_was_grounded = true
+
+func kill() -> void:
+	# TODO: Death
+	pass
 
 ## Launches the character upwards based on our jump parameters.
 func _jump() -> void:

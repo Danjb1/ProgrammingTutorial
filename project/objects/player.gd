@@ -8,6 +8,8 @@ const _WALK_SPEED = 300.0
 const _RUN_SPEED = 400.0
 
 @onready var _sprite: PlayerSprite = $%AnimatedSprite2D
+@onready var _jump_audio: AudioStreamPlayer2D = $%JumpAudio
+@onready var _land_audio: AudioStreamPlayer2D = $%LandAudio
 
 var _interactable: Interactable
 
@@ -24,6 +26,14 @@ func _process_input() -> void:
 func _process_jump_input() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		_jump()
+
+func _jump() -> void:
+	super._jump()
+	_jump_audio.play()
+
+func _landed() -> void:
+	super._landed()
+	_land_audio.play()
 
 func _process_move_input() -> void:
 	var direction := Input.get_axis("left", "right")

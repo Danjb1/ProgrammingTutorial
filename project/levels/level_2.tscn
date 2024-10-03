@@ -27,6 +27,11 @@ position = Vector2(-688, 224)
 target_level = "res://levels/level_1.tscn"
 target_entrance = "Door"
 
+[node name="Door2" parent="." instance=ExtResource("4_v4tf5")]
+position = Vector2(688, 224)
+target_level = "res://levels/level_3.tscn"
+target_entrance = "Door1"
+
 [node name="Torch" parent="." instance=ExtResource("5_qwt8m")]
 z_index = 1
 position = Vector2(-352, 192)
