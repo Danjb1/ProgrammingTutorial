@@ -5,10 +5,14 @@ const _TEXT_DISPLAY_RESOURCE = preload("res://ui/text_display.tscn")
 @export var popup_size := Vector2(80, 40)
 @export_multiline var text: String
 
+@onready var _open_audio: AudioStreamPlayer2D = $%OpenAudio
+@onready var _close_audio: AudioStreamPlayer2D = $%CloseAudio
+
 var _text_display: RichTextLabel
 
 func interact() -> void:
 	get_tree().paused = true
+	_open_audio.play()
 	_show_popup()
 
 func _show_popup() -> void:
@@ -29,4 +33,5 @@ func _on_popup_opened() -> void:
 	_text_display.center_vertical()
 
 func _on_popup_close_requested() -> void:
+	_close_audio.play()
 	_text_display.autowrap_mode = TextServer.AUTOWRAP_OFF

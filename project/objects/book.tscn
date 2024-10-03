@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b25c5ux53rlrp"]
+[gd_scene load_steps=11 format=3 uid="uid://b25c5ux53rlrp"]
 
 [ext_resource type="Texture2D" uid="uid://uubhvhoj1mfw" path="res://textures/book.png" id="1_pjtyh"]
 [ext_resource type="Script" path="res://objects/book.gd" id="1_xumby"]
 [ext_resource type="Texture2D" uid="uid://c7ahjdknf56tu" path="res://textures/sparkle.png" id="2_nfntf"]
+[ext_resource type="AudioStream" uid="uid://cvidvrgemgh2o" path="res://sounds/book_open.ogg" id="4_luokx"]
+[ext_resource type="AudioStream" uid="uid://cnxgp4m4j1f40" path="res://sounds/book_close.ogg" id="5_gb13l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k45uc"]
 size = Vector2(12, 14)
@@ -59,3 +61,13 @@ material = SubResource("CanvasItemMaterial_xe708")
 position = Vector2(0, -0.75)
 process_material = SubResource("ParticleProcessMaterial_a0g0u")
 texture = ExtResource("2_nfntf")
+
+[node name="OpenAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+stream = ExtResource("4_luokx")
+
+[node name="CloseAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+stream = ExtResource("5_gb13l")

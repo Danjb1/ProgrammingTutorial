@@ -1,8 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://bqw1g0yoe1ga7"]
+[gd_scene load_steps=31 format=3 uid="uid://bqw1g0yoe1ga7"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_le4c2"]
 [ext_resource type="Texture2D" uid="uid://w0a25ew2c2gy" path="res://textures/wizard.png" id="2_rxy1i"]
 [ext_resource type="Script" path="res://objects/player_sprite.gd" id="3_76au5"]
+[ext_resource type="AudioStream" uid="uid://ddrcmh33jp22y" path="res://sounds/footstep_1.ogg" id="4_pqqh4"]
+[ext_resource type="AudioStream" uid="uid://bbbdsey3thomi" path="res://sounds/footstep_2.ogg" id="5_6ac6u"]
+[ext_resource type="AudioStream" uid="uid://d27rlasa0hsva" path="res://sounds/footstep_3.ogg" id="6_aj8vd"]
+[ext_resource type="AudioStream" uid="uid://c5sd64kvw8die" path="res://sounds/footstep_4.ogg" id="7_anrav"]
+[ext_resource type="AudioStream" uid="uid://diapy2o0iyqwb" path="res://sounds/footstep_5.ogg" id="8_w5tqf"]
+[ext_resource type="AudioStream" uid="uid://cfdbry41y6jdw" path="res://sounds/footstep_6.ogg" id="9_cokjm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kxt16"]
 radius = 2.5
@@ -172,6 +178,16 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6ab68"]
+playback_mode = 2
+streams_count = 6
+stream_0/stream = ExtResource("4_pqqh4")
+stream_1/stream = ExtResource("5_6ac6u")
+stream_2/stream = ExtResource("6_aj8vd")
+stream_3/stream = ExtResource("7_anrav")
+stream_4/stream = ExtResource("8_w5tqf")
+stream_5/stream = ExtResource("9_cokjm")
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 5
@@ -185,6 +201,11 @@ shape = SubResource("CapsuleShape2D_kxt16")
 unique_name_in_owner = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5o1og")
-animation = &"land"
+animation = &"walk"
 autoplay = "idle"
 script = ExtResource("3_76au5")
+
+[node name="FootstepAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_6ab68")
+volume_db = -4.0

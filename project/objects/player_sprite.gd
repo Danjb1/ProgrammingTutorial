@@ -4,6 +4,10 @@ extends AnimatedSprite2D
 ## Minimum lateral speed for the walk animation to play
 const _MIN_MOVE_SPEED = 0.01
 
+const _FOOTSTEP_FRAMES = [0, 2]
+
+@onready var _footstep_sound: AudioStreamPlayer2D = $%FootstepAudio
+
 var _player: PlayerCharacter
 
 var _has_anim_override := false
@@ -17,6 +21,7 @@ func set_player(player: PlayerCharacter):
 	_player.character_jumped.connect(_on_player_jumped)
 	_player.character_landed.connect(_on_player_landed)
 	animation_finished.connect(_on_animation_finished)
+	frame_changed.connect(_on_anim_frame_changed)
 	set_process(true)
 
 func _process(_delta: float) -> void:
@@ -65,3 +70,8 @@ func _on_animation_finished() -> void:
 	var next_anim = _anim_queue.pop_front()
 	if next_anim:
 		play(next_anim)
+
+func _on_anim_frame_changed() -> void:
+	if animation == "walk" or animation == "run":
+		if frame in _FOOTSTEP_FRAMES:
+			_footstep_sound.play()
