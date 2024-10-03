@@ -1,7 +1,7 @@
 extends Area2D
 ## Area that transports the player to a new level.
 
-const _RECENT_TELEPORT_THRESHOLD := 60
+const _RECENT_TELEPORT_THRESHOLD_MS := 60
 
 @export var target_level: String
 @export var target_entrance: String
@@ -18,7 +18,7 @@ func _on_body_entered(body: Node2D):
 	var player := body as PlayerCharacter
 	if not player:
 		return
-	if player.has_recently_teleported(_RECENT_TELEPORT_THRESHOLD):
+	if player.has_recently_teleported(_RECENT_TELEPORT_THRESHOLD_MS):
 		# If the player teleported onto the door, force them to leave the door
 		# before teleportation is permitted again
 		_awaiting_exit = true
