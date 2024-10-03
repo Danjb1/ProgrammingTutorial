@@ -1,28 +1,24 @@
 [gd_scene load_steps=6 format=4 uid="uid://bp0fp15j5ioad"]
 
-[ext_resource type="TileSet" uid="uid://cvwie65psn1mi" path="res://tilesets/castle_bg_tile_set.tres" id="1_k8lb0"]
 [ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="2_f84sq"]
 [ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://objects/player.tscn" id="3_wuvnb"]
 [ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="4_okccv"]
 [ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="4_v4tf5"]
+[ext_resource type="PackedScene" uid="uid://be1gxksyw0e31" path="res://objects/torch_freestanding.tscn" id="5_qwt8m"]
 
 [node name="LevelRoot" type="Node2D"]
 
-[node name="BackgroundTiles" type="TileMapLayer" parent="."]
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
 scale = Vector2(8, 8)
-tile_map_data = PackedByteArray("AAD5/wAAAAAAAAAAAAD5/wEAAAAAAAEAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAEAAAADAAAAAAAAAAAAAAADAAEAAAAAAAEAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAEAAAA=")
-tile_set = ExtResource("1_k8lb0")
+tile_map_data = PackedByteArray("AAD8/wAAAwAAAAAAAAD8/wEAAwAAAAEAAAADAAAAAwAAAAAAAAADAAEAAwAAAAEAAAAGAAAAAwAAAAAAAAAGAAEAAwAAAAEAAAD5/wAAAwAAAAAAAAD5/wEAAwAAAAEAAAA=")
+tile_set = ExtResource("2_f84sq")
 
-[node name="ForegroundTiles" type="TileMapLayer" parent="."]
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
 texture_filter = 1
 scale = Vector2(8, 8)
 tile_map_data = PackedByteArray("AAD2/wUAAAAAAAAAAAD3/wUAAAAAAAAAAAD4/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAD+/wUAAAAAAAAAAAD//wUAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAP//AAAAAAAAAAAJAP7/AAAAAAAAAAAJAP3/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPr/AAAAAAAAAAAIAPr/AAAAAAAAAAAHAPr/AAAAAAAAAAAGAPr/AAAAAAAAAAAFAPr/AAAAAAAAAAAEAPr/AAAAAAAAAAADAPr/AAAAAAAAAAACAPr/AAAAAAAAAAABAPr/AAAAAAAAAAAAAPr/AAAAAAAAAAD///r/AAAAAAAAAAD+//r/AAAAAAAAAAD9//r/AAAAAAAAAAD8//r/AAAAAAAAAAD7//r/AAAAAAAAAAD6//r/AAAAAAAAAAD5//r/AAAAAAAAAAD4//r/AAAAAAAAAAD3//r/AAAAAAAAAAD2//r/AAAAAAAAAAD2//v/AAAAAAAAAAD2//z/AAAAAAAAAAD2//3/AAAAAAAAAAD2//7/AAAAAAAAAAD2////AAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wQAAAACAAAAAAD3/wQAAAACAAAAAAD4/wQAAAACAAAAAAD5/wQAAAACAAAAAAD6/wQAAAACAAAAAAD7/wQAAAACAAAAAAD8/wQAAAACAAAAAAD9/wQAAAACAAAAAAD+/wQAAAACAAAAAAD//wQAAAACAAAAAAAAAAQAAAACAAAAAAABAAQAAAACAAAAAAACAAQAAAACAAAAAAADAAQAAAACAAAAAAAEAAQAAAACAAAAAAAFAAQAAAACAAAAAAAGAAQAAAACAAAAAAAHAAQAAAACAAAAAAAIAAQAAAACAAAAAAAJAAQAAAACAAAAAAAJAAIAAAAAAAAAAAD1/wIAAAAAAAAAAAD1/wUAAAAAAAAAAAAKAAQAAAACAAAAAAAKAAUAAAAAAAAAAAALAAUAAAAAAAAAAAALAAQAAAAAAAAAAAALAAMAAAAAAAAAAAALAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAD1/wQAAAACAAAAAAD0/wIAAAAAAAAAAAD0/wMAAAAAAAAAAAD0/wQAAAAAAAAAAAD0/wUAAAAAAAAAAAA=")
 tile_set = ExtResource("2_f84sq")
-
-[node name="Player" parent="." instance=ExtResource("3_wuvnb")]
-position = Vector2(0, 224)
-scale = Vector2(8, 8)
 
 [node name="AutoCamera" parent="." instance=ExtResource("4_okccv")]
 
@@ -30,3 +26,18 @@ scale = Vector2(8, 8)
 position = Vector2(-688, 224)
 target_level = "res://levels/level_1.tscn"
 target_entrance = "Door"
+
+[node name="Torch" parent="." instance=ExtResource("5_qwt8m")]
+z_index = 1
+position = Vector2(-352, 192)
+
+[node name="Torch2" parent="." instance=ExtResource("5_qwt8m")]
+position = Vector2(-32, 192)
+
+[node name="Torch3" parent="." instance=ExtResource("5_qwt8m")]
+z_index = 1
+position = Vector2(288, 192)
+
+[node name="Player" parent="." instance=ExtResource("3_wuvnb")]
+position = Vector2(-640, 224)
+scale = Vector2(8, 8)

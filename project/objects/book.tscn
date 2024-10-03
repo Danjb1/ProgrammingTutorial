@@ -54,7 +54,6 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_k45uc")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-process_mode = 3
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_xe708")
 position = Vector2(0, -0.75)

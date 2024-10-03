@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://be1gxksyw0e31"]
+
+[ext_resource type="Script" path="res://objects/torch_freestanding.gd" id="1_3uhhq"]
+[ext_resource type="Texture2D" uid="uid://vimeicxgwbia" path="res://textures/torch_flame.png" id="1_pmieg"]
+[ext_resource type="Texture2D" uid="uid://4boaj367387e" path="res://textures/torch_freestanding.png" id="2_odo81"]
+[ext_resource type="AudioStream" uid="uid://dg3kqlpyoprh6" path="res://sounds/torch_light.ogg" id="4_oh5ic"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ljk7f"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_d1hgy"]
+_data = [Vector2(0, 0.749161), 0.0, 0.0, 0, 0, Vector2(0.848, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_immvh"]
+curve = SubResource("Curve_d1hgy")
+
+[sub_resource type="Curve" id="Curve_ipm0f"]
+max_value = 2.0
+_data = [Vector2(0.504, 1.01846), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lndgn"]
+curve = SubResource("Curve_ipm0f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yv5d1"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0.5, 0.5, 0)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+spread = 60.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, -65, 0)
+scale_min = 8.0
+scale_max = 8.0
+alpha_curve = SubResource("CurveTexture_immvh")
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+anim_speed_curve = SubResource("CurveTexture_lndgn")
+anim_offset_max = 0.3333
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3b8ew"]
+size = Vector2(64, 128)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5278l"]
+playback_mode = 1
+random_pitch = 1.05
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("4_oh5ic")
+
+[node name="Torch" type="Node2D"]
+script = ExtResource("1_3uhhq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_ljk7f")
+position = Vector2(8, -26)
+scale = Vector2(8, 8)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_yv5d1")
+texture = ExtResource("1_pmieg")
+lifetime = 1.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+texture = ExtResource("2_odo81")
+
+[node name="Area2D" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_3b8ew")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_5278l")
