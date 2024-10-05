@@ -2,6 +2,11 @@ class_name CustomCharacter
 extends CharacterBody2D
 ## Base character class.
 
+## Helper class used to store parameters required for a jump.
+class JumpParams:
+	var gravity_scale := 0.0
+	var jump_speed := 0.0
+
 ## Signal emitted when the character jumps.
 signal character_jumped(character: CustomCharacter)
 
@@ -23,7 +28,7 @@ const _SPAWN_FLOOR_TEST_DISTANCE = 5.0
 ################################################################################
 
 ## Apex height when jumping
-@export var jump_height := 100.0
+@export var jump_height := 135.0
 
 ## Time to reach apex when jumping
 @export var jump_time := 0.5
@@ -34,6 +39,7 @@ var _was_grounded := false
 var _gravity_scale := 1.0
 var _facing_left := false
 var _last_teleport_timestamp := 0
+var _jump_params: JumpParams
 
 func _ready() -> void:
 	call_deferred("_deferred_ready")
@@ -49,6 +55,8 @@ func _deferred_ready() -> void:
 	_post_spawn_physics()
 
 func _post_spawn_physics():
+	_jump_params = _calc_jump_params(jump_height, jump_time)
+	_gravity_scale = _jump_params.gravity_scale
 	# If we are spawning on a floor then we should snap to it, to prevent any
 	# extraneous "landed" events being fired later.
 	var floor_test_vector := Vector2.DOWN * _SPAWN_FLOOR_TEST_DISTANCE
@@ -120,8 +128,10 @@ func kill() -> void:
 	# TODO: Death
 	pass
 
-## Launches the character upwards based on our jump parameters.
-func _jump() -> void:
+## Calculates the jump parameters required to reach the given height in the given time.
+func _calc_jump_params(p_jump_height: float, p_jump_time: float) -> JumpParams:
+	var jump_params := JumpParams.new()
+
 	# From equations of motion:
 	#   s = ut + 0.5 * a * t^2
 	# rearranged for a:
@@ -130,7 +140,8 @@ func _jump() -> void:
 	#   s = apex height
 	#   t = fall duration (same as time to reach apex)
 	#   u = initial velocity (0)
-	var desired_gravity := 2.0 * jump_height / pow(jump_time, 2.0)
+	var desired_gravity = 2.0 * p_jump_height / pow(p_jump_time, 2.0)
+	jump_params.gravity_scale = desired_gravity / get_gravity().length()
 	
 	# From equations of motion:
 	#   v = u + at
@@ -138,15 +149,19 @@ func _jump() -> void:
 	#   u = 0 (initial speed)
 	#   a = gravity
 	#   t = time to reach apex
-	var jump_speed := desired_gravity * jump_time
+	jump_params.jump_speed = desired_gravity * p_jump_time
 
-	_gravity_scale = desired_gravity / get_gravity().length()
-	velocity.y = -jump_speed
+	return jump_params
+
+## Launches the character upwards based on our jump parameters.
+func _jump() -> void:
+	_gravity_scale = _jump_params.gravity_scale
+	velocity.y = -_jump_params.jump_speed
 	character_jumped.emit(self)
 
 ## Called whenever the character becomes grounded.
 func _landed() -> void:
-	_gravity_scale = 1.0
+	_gravity_scale = _jump_params.gravity_scale
 	character_landed.emit(self)
 
 ## Teleports to the given position.

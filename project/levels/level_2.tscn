@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://bp0fp15j5ioad"]
 
 [ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="2_f84sq"]
-[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://objects/player.tscn" id="3_wuvnb"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="3_wuvnb"]
 [ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="4_okccv"]
 [ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="4_v4tf5"]
 [ext_resource type="PackedScene" uid="uid://be1gxksyw0e31" path="res://objects/torch_freestanding.tscn" id="5_qwt8m"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=33 format=3 uid="uid://bqw1g0yoe1ga7"]
 
-[ext_resource type="Script" path="res://objects/player.gd" id="1_le4c2"]
+[ext_resource type="Script" path="res://characters/player.gd" id="1_le4c2"]
 [ext_resource type="Texture2D" uid="uid://w0a25ew2c2gy" path="res://textures/wizard.png" id="2_rxy1i"]
-[ext_resource type="Script" path="res://objects/player_sprite.gd" id="3_76au5"]
+[ext_resource type="Script" path="res://characters/player_sprite.gd" id="3_76au5"]
 [ext_resource type="AudioStream" uid="uid://ddrcmh33jp22y" path="res://sounds/footstep_1.ogg" id="4_pqqh4"]
 [ext_resource type="AudioStream" uid="uid://bbbdsey3thomi" path="res://sounds/footstep_2.ogg" id="5_6ac6u"]
 [ext_resource type="AudioStream" uid="uid://d27rlasa0hsva" path="res://sounds/footstep_3.ogg" id="6_aj8vd"]
@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://mb8e5dvmec76" path="res://sounds/land.ogg" id="10_v7weh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4nuj"]
-size = Vector2(6, 7)
+size = Vector2(5, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5d6pf"]
 atlas = ExtResource("2_rxy1i")
@@ -201,6 +201,7 @@ shape = SubResource("RectangleShape2D_b4nuj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
+position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_5o1og")
 animation = &"walk"
 autoplay = "idle"
@@ -218,3 +219,4 @@ stream = ExtResource("10_5eww7")
 [node name="LandAudio" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("10_v7weh")
+volume_db = -2.0

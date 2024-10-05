@@ -33,14 +33,17 @@ func _process(_delta: float) -> void:
 
 func _try_load_pending_level() -> bool:
 	if not _level_to_load:
-		return false;
-	_unload_current_level()
-	# This is currently synchronous, we may want to show a loading screen instead
+		return false
+	if not ResourceLoader.exists(_level_to_load, "PackedScene"):
+		push_warning("Tried to load invalid level: %s" % _level_to_load)
+		return false
+	# This is currently synchronous; we may want to show a loading screen instead
 	var level_resource = load(_level_to_load)
 	if not level_resource:
 		push_warning("Failed to load level: %s" % _level_to_load)
 		_level_to_load = ""
 		return false
+	_unload_current_level()
 	_loaded_level = level_resource.instantiate()
 	get_tree().root.add_child(_loaded_level)
 	_level_to_load = ""

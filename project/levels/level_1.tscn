@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="3_to8t0"]
 [ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="4_tsdf6"]
 [ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="5_sbbit"]
-[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://objects/player.tscn" id="6_jg55j"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="6_jg55j"]
 
 [node name="LevelRoot" type="Node2D"]
 
