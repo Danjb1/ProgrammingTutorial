@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://1ij4ouu2fu8o"]
 
-[ext_resource type="Script" path="res://ui/popup.gd" id="1_cuwk0"]
+[ext_resource type="Script" path="res://gui/popup.gd" id="1_cuwk0"]
 [ext_resource type="Texture2D" uid="uid://d2t6hgccl0yeq" path="res://textures/popup.png" id="1_i0vmt"]
 
 [sub_resource type="Animation" id="Animation_xc74y"]

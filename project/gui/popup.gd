@@ -8,7 +8,8 @@ signal opened
 ## Signal emitted when the pop-up starts to close.
 signal close_requested
 
-const _POPUP_RESOURCE := preload("res://ui/popup.tscn")
+const PopupScene := preload("res://gui/popup.tscn")
+
 const _SIZE_ANIM_TRACK_ID := 0
 const _SIZE_ANIM_LAST_KEY_ID := 1
 const _PIXEL_SCALE := 8.0
@@ -30,7 +31,7 @@ const _PADDING := Vector2(8.0, 8.0)
 @onready var _anim_player: AnimationPlayer = $%AnimationPlayer
 
 static func create(p_desired_size: Vector2, p_content: Control) -> PopupBox:
-	var popup := _POPUP_RESOURCE.instantiate()
+	var popup := PopupScene.instantiate()
 	popup.desired_size = p_desired_size
 	popup.content = p_content
 	return popup
@@ -56,6 +57,7 @@ func _init_offset() -> void:
 	_screen_px_margin_container.add_theme_constant_override("margin_bottom", bottom * px_scale)
 
 func _init_anim() -> void:
+	# TODO: We should use a tween for this instead
 	# Customize the "in" animation based on the desired pop-up size
 	var in_anim = _anim_player.get_animation("in")
 	var sanitized_size = _get_sanitized_size(desired_size)

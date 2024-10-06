@@ -1,6 +1,6 @@
 extends Interactable
 
-const _TEXT_DISPLAY_RESOURCE = preload("res://ui/text_display.tscn")
+const TextDisplayScene = preload("res://gui/text_display.tscn")
 
 @export var popup_size := Vector2(80, 40)
 @export_multiline var text: String
@@ -16,7 +16,7 @@ func interact() -> void:
 	_show_popup()
 
 func _show_popup() -> void:
-	_text_display = _TEXT_DISPLAY_RESOURCE.instantiate()
+	_text_display = TextDisplayScene.instantiate()
 	_text_display.text = text
 	_text_display.center_vertical()
 	var popup := PopupBox.create(popup_size, _text_display)

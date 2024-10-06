@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ba31d3xu8jfvu"]
 
-[ext_resource type="Script" path="res://ui/text_display.gd" id="1_so27q"]
+[ext_resource type="Script" path="res://gui/text_display.gd" id="1_so27q"]
 
 [node name="TextDisplay" type="RichTextLabel"]
 texture_filter = 1
