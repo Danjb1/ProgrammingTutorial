@@ -63,6 +63,8 @@ func _process_interact_input() -> void:
 	var direction := Input.get_axis("up", "down")
 	if direction < 0.0:
 		_attempt_interact()
+	elif direction > 0.0:
+		_attempt_drop_through()
 
 func _apply_move_input(direction, speed) -> void:
 	super._apply_move_input(direction, speed)
@@ -78,3 +80,21 @@ func _attempt_interact() -> void:
 	if not _interactable:
 		return
 	_interactable.interact()
+
+func _attempt_drop_through() -> void:
+	if _is_on_drop_through_platform():
+		position.y += 1
+
+func _is_on_drop_through_platform() -> bool:
+	var found_drop_through_platform := false
+	for tile_collision in _last_tile_collisions:
+		var is_collision_below_player := tile_collision.collision_point.y > global_position.y
+		if not is_collision_below_player:
+			continue
+		if tile_collision.tile_data.is_collision_polygon_one_way(0, 0):
+			# Bit of a hack but this works for now, as the only one-way collisions we have are
+			# drop-through platforms
+			found_drop_through_platform = true
+		else:
+			return false
+	return found_drop_through_platform

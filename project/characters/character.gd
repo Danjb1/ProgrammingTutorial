@@ -7,6 +7,23 @@ class JumpParams:
 	var gravity_scale := 0.0
 	var jump_speed := 0.0
 
+## Helper class used to store data about a tile collision.
+class TileCollision:
+	var tilemap: TileMapLayer
+	var collision_point: Vector2
+	var tile_coords: Vector2i
+	var tile_data: TileData
+
+	func _init(
+			p_tilemap: TileMapLayer,
+			p_collision_point: Vector2,
+			p_tile_coords: Vector2i,
+			p_tile_data: TileData):
+		tilemap = p_tilemap
+		collision_point = p_collision_point
+		tile_coords = p_tile_coords
+		tile_data = p_tile_data
+
 ## Signal emitted when the character jumps.
 signal character_jumped(character: CustomCharacter)
 
@@ -40,9 +57,28 @@ var _gravity_scale := 1.0
 var _facing_left := false
 var _last_teleport_timestamp := 0
 var _jump_params: JumpParams
+var _last_tile_collisions: Array[TileCollision]
+var _collision_sampling_points: Array[Vector2]
+var _collision_probe_depth := 0.1
 
 func _ready() -> void:
+	_collision_sampling_points = _find_collision_sampling_points()
 	call_deferred("_deferred_ready")
+
+## Gets all points around the character - in local space - at which to check for tile collisions.
+## This will need to be reworked for characters larger than 1 tile,
+## or character with complex shapes.
+func _find_collision_sampling_points() -> Array[Vector2]:
+	var shape_owner := shape_owner_get_owner(0) as Node2D
+	var shape_offset = shape_owner.position
+	var shape := shape_owner_get_shape(0, 0)
+	var bounds := shape.get_rect()
+	return [
+		shape_offset + bounds.position,                             # top-left
+		shape_offset + bounds.position + Vector2(bounds.size.x, 0), # top-right
+		shape_offset + bounds.position + bounds.size,               # bottom-right
+		shape_offset + bounds.position + Vector2(0, bounds.size.y)  # bottom-left
+	]
 
 func _deferred_ready() -> void:
 	# Wait a while before enabling physics, to allow TileMap initialization.
@@ -75,8 +111,7 @@ func _physics_process(delta: float) -> void:
 
 ## Applies gravity to our current velocity.
 func _apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity += _get_scaled_gravity() * delta
+	velocity += _get_scaled_gravity() * delta
 
 ## Override this to set the current move input before movement is attempted.
 func _process_input() -> void:
@@ -96,26 +131,46 @@ func _decelerate() -> void:
 
 ## Moves according to our current velocity.
 func _move() -> void:
-	_was_grounded = is_on_floor()
+	_prepare_move()
 	var collided := move_and_slide()
 	if collided:
 		var collision = get_last_slide_collision()
 		_process_collision(collision)
 
+func _prepare_move() -> void:
+	_was_grounded = is_on_floor()
+	_last_tile_collisions.clear()
+
 func _process_collision(collision: KinematicCollision2D) -> void:
 	var tilemap := collision.get_collider() as TileMapLayer
 	if tilemap:
-		var tile_coords := tilemap.get_coords_for_body_rid(collision.get_collider_rid())
-		var tile_data := tilemap.get_cell_tile_data(tile_coords)
-		_process_tile_collision(collision, tile_coords, tile_data)
+		_process_collision_with_tilemap(collision, tilemap)
 	if is_on_floor() and not _was_grounded:
 		_landed()
 
-func _process_tile_collision(
-		_collision: KinematicCollision2D,
-		_tile_coords: Vector2i,
-		tile_data: TileData) -> bool:
-	if tile_data.get_custom_data("instakill") as bool:
+func _process_collision_with_tilemap(collision: KinematicCollision2D, tilemap: TileMapLayer):
+	_last_tile_collisions = _find_tile_collisions(collision, tilemap)
+	for tile_collision in _last_tile_collisions:
+		_process_tile_collision(tile_collision)
+	
+func _find_tile_collisions(
+		collision: KinematicCollision2D,
+		tilemap: TileMapLayer) -> Array[TileCollision]:
+	var tile_collisions: Array[TileCollision] = []
+	for local_point in _collision_sampling_points:
+		var global_point = to_global(local_point)
+		var collision_point = global_point - collision.get_normal() * _collision_probe_depth
+		var point_in_tilemap = tilemap.to_local(collision_point)
+		var tile_coords := tilemap.local_to_map(point_in_tilemap)
+		var tile_data := tilemap.get_cell_tile_data(tile_coords)
+		if not tile_data:
+			continue
+		var tile_collision := TileCollision.new(tilemap, collision_point, tile_coords, tile_data)
+		tile_collisions.push_back(tile_collision)
+	return tile_collisions
+
+func _process_tile_collision(tile_collision: TileCollision) -> bool:
+	if tile_collision.tile_data.get_custom_data("instakill") as bool:
 		_suppress_landing()
 		kill()
 		return true
