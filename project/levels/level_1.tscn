@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="5_sbbit"]
 [ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="6_jg55j"]
 
-[node name="LevelRoot" type="Node2D"]
+[node name="LevelRoot" type="Node2D" groups=["level"]]
 
 [node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
 texture_filter = 1
 position = Vector2(0, 1)
 scale = Vector2(8, 8)

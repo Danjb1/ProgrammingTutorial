@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbnc1bbc3nora"]
+
+[ext_resource type="Texture2D" uid="uid://di0ve5d00l1a0" path="res://textures/burst.png" id="1_f5hgi"]
+[ext_resource type="Script" path="res://effects/effect.gd" id="2_i1x1r"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m4aoi"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_ulkf0"]
+_data = [Vector2(0, 0.749161), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nr5o6"]
+curve = SubResource("Curve_ulkf0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_inril"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 8.0
+scale_max = 8.0
+color = Color(0.98724, 0.983527, 0.960369, 1)
+alpha_curve = SubResource("CurveTexture_nr5o6")
+anim_speed_min = 2.0
+anim_speed_max = 2.0
+
+[node name="SpellHit" type="GPUParticles2D"]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_m4aoi")
+scale = Vector2(8, 8)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_inril")
+texture = ExtResource("1_f5hgi")
+lifetime = 0.5
+one_shot = true
+script = ExtResource("2_i1x1r")

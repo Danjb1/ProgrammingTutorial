@@ -36,6 +36,7 @@ enabled=PackedStringArray()
 [global_group]
 
 player="The player character."
+level="The current level root."
 
 [gui]
 

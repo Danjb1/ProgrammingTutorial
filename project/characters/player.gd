@@ -20,6 +20,7 @@ var _COYOTE_TIME_MS := 35
 @onready var _sprite: PlayerSprite = $%AnimatedSprite2D
 @onready var _jump_audio: AudioStreamPlayer2D = $%JumpAudio
 @onready var _land_audio: AudioStreamPlayer2D = $%LandAudio
+@onready var _spell_audio: AudioStreamPlayer2D = $%SpellAudio
 @onready var _spell_offset: Node2D = $%SpellOffset
 
 var _interactable: Interactable
@@ -120,11 +121,18 @@ func _attempt_spell() -> void:
 	if is_instance_valid(_current_projectile):
 		# Only 1 spell at a time!
 		return
-	_current_projectile = SpellProjectileScene.instantiate()
-	_current_projectile.global_position = _find_spell_position()
-	_current_projectile.velocity = Vector2(get_dir_multiplier() * _SPELL_SPEED, 0.0)
+	# Reset our y-speed if falling
+	velocity.y = min(velocity.y, 0)
+	_current_projectile = _create_spell_projectile()
 	get_tree().root.add_child(_current_projectile)
+	_spell_audio.play()
 	spell_cast.emit(_current_projectile)
+
+func _create_spell_projectile() -> SpellProjectile:
+	var proj := SpellProjectileScene.instantiate()
+	proj.global_position = _find_spell_position()
+	proj.velocity = Vector2(get_dir_multiplier() * _SPELL_SPEED, 0.0)
+	return proj
 
 func _find_spell_position() -> Vector2:
 	var offset := _spell_offset.position * _spell_offset.global_scale

@@ -6,9 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="4_v4tf5"]
 [ext_resource type="PackedScene" uid="uid://be1gxksyw0e31" path="res://objects/torch_freestanding.tscn" id="5_qwt8m"]
 
-[node name="LevelRoot" type="Node2D"]
+[node name="LevelRoot" type="Node2D" groups=["level"]]
 
 [node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
 texture_filter = 1
 scale = Vector2(8, 8)
 tile_map_data = PackedByteArray("AAD8/wAAAwAAAAAAAAD8/wEAAwAAAAEAAAADAAAAAwAAAAAAAAADAAEAAwAAAAEAAAAGAAAAAwAAAAAAAAAGAAEAAwAAAAEAAAD5/wAAAwAAAAAAAAD5/wEAAwAAAAEAAAA=")

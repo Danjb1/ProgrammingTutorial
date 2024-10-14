@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://clvessebusase"]
+[gd_scene load_steps=11 format=3 uid="uid://clvessebusase"]
 
 [ext_resource type="Script" path="res://projectiles/spell_projectile.gd" id="1_lndx6"]
 [ext_resource type="Texture2D" uid="uid://c7ahjdknf56tu" path="res://textures/sparkle.png" id="2_lyj61"]
+[ext_resource type="AudioStream" uid="uid://gg3184iy4t6j" path="res://sounds/spell_hit.ogg" id="3_a672f"]
+[ext_resource type="Script" path="res://utils/sound.gd" id="4_clkec"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4rve1"]
 radius = 2.5
@@ -16,7 +18,7 @@ particles_anim_loop = false
 _data = [Vector2(0, 0.749161), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_nr5o6"]
+[sub_resource type="CurveTexture" id="CurveTexture_3oh6a"]
 curve = SubResource("Curve_o4d62")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wg7cx"]
@@ -31,9 +33,15 @@ gravity = Vector3(0, 0, 0)
 scale_min = 8.0
 scale_max = 8.0
 color = Color(0.98724, 0.983527, 0.960369, 1)
-alpha_curve = SubResource("CurveTexture_nr5o6")
+alpha_curve = SubResource("CurveTexture_3oh6a")
 anim_speed_min = 0.5
 anim_speed_max = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_81mlt"]
+random_pitch = 1.05
+random_volume_offset_db = 2.0
+streams_count = 1
+stream_0/stream = ExtResource("3_a672f")
 
 [node name="SpellProjectile" type="CharacterBody2D"]
 z_index = -1
@@ -52,3 +60,8 @@ amount = 32
 process_material = SubResource("ParticleProcessMaterial_wg7cx")
 texture = ExtResource("2_lyj61")
 lifetime = 0.2
+
+[node name="HitAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_81mlt")
+script = ExtResource("4_clkec")
