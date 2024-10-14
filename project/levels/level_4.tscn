@@ -26,7 +26,7 @@ offset = Vector2(0, 24)
 
 [node name="Door1" parent="." instance=ExtResource("3_mx4br")]
 position = Vector2(-688, 224)
-target_level = "res://levels/level_2.tscn"
+target_level = "res://levels/level_3.tscn"
 target_entrance = "Door2"
 
 [node name="Door2" parent="." instance=ExtResource("3_mx4br")]

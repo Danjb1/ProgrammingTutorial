@@ -20,6 +20,7 @@ func set_player(player: PlayerCharacter):
 	_player = player
 	_player.character_jumped.connect(_on_player_jumped)
 	_player.character_landed.connect(_on_player_landed)
+	_player.spell_cast.connect(_on_spell_cast)
 	animation_finished.connect(_on_animation_finished)
 	frame_changed.connect(_on_anim_frame_changed)
 	set_process(true)
@@ -64,8 +65,6 @@ func _play_aerial_anim() -> void:
 		play("fall")
 
 func _on_animation_finished() -> void:
-	if animation == "landed":
-		print("landed finished")
 	_has_anim_override = false
 	var next_anim = _anim_queue.pop_front()
 	if next_anim:
@@ -75,3 +74,8 @@ func _on_anim_frame_changed() -> void:
 	if animation == "walk" or animation == "run":
 		if frame in _FOOTSTEP_FRAMES:
 			_footstep_sound.play()
+
+func _on_spell_cast(_spell: SpellProjectile) -> void:
+	_anim_queue.clear()
+	play("spell")
+	_has_anim_override = true

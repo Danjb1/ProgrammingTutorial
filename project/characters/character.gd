@@ -54,7 +54,7 @@ const _SPAWN_FLOOR_TEST_DISTANCE = 5.0
 
 var _was_grounded := false
 var _gravity_scale := 1.0
-var _facing_left := false
+var _is_facing_left := false
 var _last_teleport_timestamp := 0
 var _jump_params: JumpParams
 var _last_tile_collisions: Array[TileCollision]
@@ -121,7 +121,7 @@ func _process_input() -> void:
 func _apply_move_input(direction: float, speed: float) -> void:
 	if direction:
 		velocity.x = direction * speed
-		_facing_left = direction < 0.0
+		_is_facing_left = direction < 0.0
 	else:
 		_decelerate()
 
@@ -234,3 +234,6 @@ func has_recently_teleported(time_window: int) -> bool:
 ## Gets the gravity vector, with the current gravity scale applied.
 func _get_scaled_gravity() -> Vector2:
 	return get_gravity() * _gravity_scale
+
+func get_dir_multiplier() -> float:
+	return -1.0 if _is_facing_left else 1.0

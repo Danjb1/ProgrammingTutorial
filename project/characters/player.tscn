@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bqw1g0yoe1ga7"]
+[gd_scene load_steps=34 format=3 uid="uid://bqw1g0yoe1ga7"]
 
 [ext_resource type="Script" path="res://characters/player.gd" id="1_le4c2"]
 [ext_resource type="Texture2D" uid="uid://w0a25ew2c2gy" path="res://textures/wizard.png" id="2_rxy1i"]
@@ -70,6 +70,10 @@ region = Rect2(18, 18, 8, 8)
 [sub_resource type="AtlasTexture" id="AtlasTexture_q21gi"]
 atlas = ExtResource("2_rxy1i")
 region = Rect2(27, 18, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vv4if"]
+atlas = ExtResource("2_rxy1i")
+region = Rect2(18, 36, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fifbl"]
 atlas = ExtResource("2_rxy1i")
@@ -163,6 +167,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_vv4if")
+}],
+"loop": false,
+"name": &"spell",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_fifbl")
 }, {
 "duration": 1.0,
@@ -189,7 +201,7 @@ stream_3/stream = ExtResource("7_anrav")
 stream_4/stream = ExtResource("8_w5tqf")
 stream_5/stream = ExtResource("9_cokjm")
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_le4c2")
@@ -203,7 +215,7 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(-0.5, 0)
 sprite_frames = SubResource("SpriteFrames_5o1og")
-animation = &"walk"
+animation = &"spell"
 autoplay = "idle"
 script = ExtResource("3_76au5")
 
@@ -220,3 +232,7 @@ stream = ExtResource("10_5eww7")
 unique_name_in_owner = true
 stream = ExtResource("10_v7weh")
 volume_db = -2.0
+
+[node name="SpellOffset" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(4, -1)

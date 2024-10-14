@@ -4,8 +4,6 @@ extends Node
 ## Size that levels are built to.
 const SIZE = Vector2(1280, 720)
 
-var _player: PlayerCharacter
-
 var _loaded_level: Node
 var _level_to_load: String
 var _target_entrance: String
@@ -17,9 +15,6 @@ func _ready() -> void:
 	var root := get_tree().root
 	_loaded_level = root.get_child(root.get_child_count() - 1)
 	set_process(false)
-
-func register_player(player: PlayerCharacter):
-	_player = player
 
 func request_level(level_path: String, entrance: String) -> void:
 	_level_to_load = level_path
@@ -54,10 +49,11 @@ func _unload_current_level() -> void:
 		_loaded_level.free()
 
 func _teleport_to_entrance():
-	if not _player and _target_entrance:
+	var player := get_tree().get_first_node_in_group("player") as PlayerCharacter
+	if not (player and _target_entrance):
 		return
 	var entrance_node: Node2D = _loaded_level.get_node_or_null(_target_entrance)
 	if entrance_node:
-		_player.teleport(entrance_node.global_position)
+		player.teleport(entrance_node.global_position)
 	else:
 		push_warning("Target entrance not found: %s" % _target_entrance)

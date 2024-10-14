@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://clvessebusase"]
+
+[ext_resource type="Script" path="res://projectiles/spell_projectile.gd" id="1_lndx6"]
+[ext_resource type="Texture2D" uid="uid://c7ahjdknf56tu" path="res://textures/sparkle.png" id="2_lyj61"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4rve1"]
+radius = 2.5
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7k81p"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_o4d62"]
+_data = [Vector2(0, 0.749161), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nr5o6"]
+curve = SubResource("Curve_o4d62")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wg7cx"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2, 2, 0)
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+scale_min = 8.0
+scale_max = 8.0
+color = Color(0.98724, 0.983527, 0.960369, 1)
+alpha_curve = SubResource("CurveTexture_nr5o6")
+anim_speed_min = 0.5
+anim_speed_max = 1.0
+
+[node name="SpellProjectile" type="CharacterBody2D"]
+z_index = -1
+scale = Vector2(8, 8)
+collision_layer = 8
+motion_mode = 1
+script = ExtResource("1_lndx6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4rve1")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_7k81p")
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_wg7cx")
+texture = ExtResource("2_lyj61")
+lifetime = 0.2
