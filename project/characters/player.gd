@@ -22,10 +22,12 @@ var _COYOTE_TIME_MS := 35
 @onready var _land_audio: AudioStreamPlayer2D = $%LandAudio
 @onready var _spell_audio: AudioStreamPlayer2D = $%SpellAudio
 @onready var _spell_offset: Node2D = $%SpellOffset
+@onready var _unlock_audio: AudioStreamPlayer2D = $%UnlockAudio
 
 var _interactable: Interactable
 var _last_grounded_timestamp := 0.0
 var _current_projectile: SpellProjectile
+var _inventory := Inventory.new()
 
 func _ready() -> void:
 	super._ready()
@@ -88,6 +90,23 @@ func _apply_move_input(direction, speed) -> void:
 	super._apply_move_input(direction, speed)
 	_sprite.flip_h = _is_facing_left
 
+func _process_tile_collision(tile_collision: TileCollision) -> bool:
+	var result := super._process_tile_collision(tile_collision)
+	if result:
+		return true
+	if tile_collision.tile_data.get_custom_data("lock_id") as int:
+		_try_unlock_door(tile_collision)
+		return true
+	return false
+
+func _try_unlock_door(tile_collision: TileCollision) -> void:
+	var lock_id := tile_collision.tile_data.get_custom_data("lock_id") as int
+	if not _inventory.has_key(lock_id):
+		return
+	tile_collision.tilemap.set_cell(tile_collision.tile_coords, -1)
+	_unlock_audio.play()
+	_inventory.add_keys(lock_id, -1)
+
 func is_running() -> bool:
 	return Input.is_action_pressed("run")
 
@@ -139,3 +158,6 @@ func _find_spell_position() -> Vector2:
 	if _is_facing_left:
 		offset.x = -offset.x
 	return global_position + offset
+
+func get_inventory() -> Inventory:
+	return _inventory

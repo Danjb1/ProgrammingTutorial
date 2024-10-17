@@ -1,3 +1,4 @@
+class_name DetachableSound
 extends AudioStreamPlayer2D
 
 ## Detaches this node from its parent and attaches it to the level root instead.

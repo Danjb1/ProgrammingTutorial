@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bqw1g0yoe1ga7"]
+[gd_scene load_steps=37 format=3 uid="uid://bqw1g0yoe1ga7"]
 
 [ext_resource type="Script" path="res://characters/player.gd" id="1_le4c2"]
 [ext_resource type="Texture2D" uid="uid://w0a25ew2c2gy" path="res://textures/wizard.png" id="2_rxy1i"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://ce1vd01djjqbk" path="res://sounds/jump.ogg" id="10_5eww7"]
 [ext_resource type="AudioStream" uid="uid://mb8e5dvmec76" path="res://sounds/land.ogg" id="10_v7weh"]
 [ext_resource type="AudioStream" uid="uid://dlowc4g1v0hq0" path="res://sounds/spell.ogg" id="12_8wpy8"]
+[ext_resource type="AudioStream" uid="uid://b6lukmsuvyy1o" path="res://sounds/unlock.ogg" id="13_i8c4o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4nuj"]
 size = Vector2(5, 7)
@@ -250,3 +251,7 @@ stream = SubResource("AudioStreamRandomizer_bm8yd")
 [node name="SpellOffset" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(4, -1)
+
+[node name="UnlockAudio" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("13_i8c4o")

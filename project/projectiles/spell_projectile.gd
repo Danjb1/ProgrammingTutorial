@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 const HitEffectScene := preload("res://effects/spell_hit.tscn")
 
-@onready var _spell_hit_audio: AudioStreamPlayer2D = $%HitAudio
+@onready var _spell_hit_audio: DetachableSound = $%HitAudio
 
 func _physics_process(delta: float) -> void:
 	var collision := move_and_collide(velocity * delta)

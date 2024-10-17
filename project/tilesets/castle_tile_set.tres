@@ -16,7 +16,6 @@ texture_region_size = Vector2i(8, 8)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1.5, -1.9375, 1.6875, -1.9375, 4, 4, -4, 4)
-1:0/0/custom_data_0 = true
 2:0/0 = 0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 3:0/0 = 0
@@ -24,6 +23,9 @@ texture_region_size = Vector2i(8, 8)
 4:0/0 = 0
 4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 4:0/0/physics_layer_0/polygon_0/one_way = true
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+5:0/0/custom_data_1 = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_atn5t"]
 resource_name = "background"
@@ -38,6 +40,8 @@ tile_size = Vector2i(8, 8)
 physics_layer_0/collision_layer = 1
 custom_data_layer_0/name = "instakill"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "lock_id"
+custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_jk8o5")
 sources/3 = SubResource("TileSetAtlasSource_atn5t")
 pattern_0 = SubResource("TileMapPattern_5hgyy")
