@@ -17,6 +17,12 @@ const _SPELL_SPEED := 800.0
 ## Time window after leaving the ground during which the player can still jump
 var _COYOTE_TIME_MS := 35
 
+## Time for which jump must be held to achieve a max-height jump
+var _MAX_JUMP_HOLD_TIME_MS := 300
+
+## Height of the player's jump if the jump key is released immediately
+var _MIN_JUMP_HEIGHT := 68.0
+
 @onready var _sprite: PlayerSprite = $%AnimatedSprite2D
 @onready var _jump_audio: AudioStreamPlayer2D = $%JumpAudio
 @onready var _land_audio: AudioStreamPlayer2D = $%LandAudio
@@ -26,8 +32,10 @@ var _COYOTE_TIME_MS := 35
 
 var _interactable: Interactable
 var _last_grounded_timestamp := 0.0
+var _jump_started_timestamp := 0.0
 var _current_projectile: SpellProjectile
 var _inventory := Inventory.new()
+var _has_reached_jump_apex := false
 
 func _ready() -> void:
 	super._ready()
@@ -41,7 +49,9 @@ func _process_input() -> void:
 
 func _process_jump_input() -> void:
 	if Input.is_action_just_pressed("jump"):
-		_attempt_jump()
+		_jump_pressed()
+	if Input.is_action_just_released("jump"):
+		_jump_released()
 
 func _can_jump() -> bool:
 	return _was_recently_grounded(_COYOTE_TIME_MS)
@@ -58,13 +68,64 @@ func _move() -> void:
 		_last_grounded_timestamp = Time.get_ticks_msec()
 	super._move()
 
-func _attempt_jump() -> void:
+func _jump_pressed() -> void:
 	if _can_jump():
 		_jump()
 
 func _jump() -> void:
 	super._jump()
+	_has_reached_jump_apex = false
 	_jump_audio.play()
+	_jump_started_timestamp = Time.get_ticks_msec()
+
+func _jump_released() -> void:
+	if velocity.y >= 0.0:
+		# Player is already descending
+		return
+	var jump_held_time := Time.get_ticks_msec() - _jump_started_timestamp
+	if jump_held_time < _MAX_JUMP_HOLD_TIME_MS:
+		_terminate_jump_early(jump_held_time)
+
+func _terminate_jump_early(jump_held_time: float) -> void:
+	# We need to adjust our jump arc so that we don't reach our max jump height.
+	# This is needed to support variable-height jumps.
+	var jump_progress := jump_held_time / _MAX_JUMP_HOLD_TIME_MS
+	var current_height := _calc_jump_height(_jump_params, jump_held_time)
+	# We know that desired height is somewhere between current height and max height.
+	# We use jump_progress to determine how far into this range to aim for.
+	var desired_height := remap(jump_progress, 0.0, 1.0, current_height, jump_height)
+	desired_height = max(desired_height, _MIN_JUMP_HEIGHT)
+	assert(current_height > 0.0 and current_height < desired_height)
+	var remaining_height := desired_height - current_height
+	#var remaining_time_ms := _MAX_JUMP_HOLD_TIME_MS - jump_held_time
+	#var remaining_time := remaining_time_ms / 1000.0
+	var new_jump_params := _calc_jump_params_for_speed(remaining_height, velocity.y)
+	_apply_jump_params(new_jump_params)
+
+## Calculates the height of a jump after the elapsed time.
+func _calc_jump_height(jump_params: JumpParams, time_ms: float) -> float:
+	# From equations of motion:
+	#   s = ut + 0.5 * a * t^2
+	# where:
+	#   u = initial y-speed in px per second
+	#   t = time in seconds
+	#   a = acceleration (gravity) in px per second squared
+	var time_s := time_ms / 1000.0
+	var gravity := get_gravity().length() * jump_params.gravity_scale
+	var displacement = jump_params.jump_speed * time_s + 0.5 * gravity * pow(time_s, 2)
+	# We are interested in the height, which is negative displacement (since -y is up)
+	return -displacement
+
+func _reached_jump_apex() -> void:
+	if _has_reached_jump_apex:
+		return
+	# Our variable jump height can mess with our gravity scale.
+	# Once we've passed the apex, we need to reset it to the default.
+	_gravity_scale = _jump_params.gravity_scale
+	# If our gravity scale was set very high, we might now be falling way too fast.
+	# Reset our vertical velocity for good measure.
+	velocity.y = 0
+	_has_reached_jump_apex = true
 
 func _landed() -> void:
 	super._landed()
