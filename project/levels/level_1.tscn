@@ -36,4 +36,3 @@ text = "[center]Welcome![/center]"
 
 [node name="Player" parent="." instance=ExtResource("6_jg55j")]
 position = Vector2(0, 224)
-scale = Vector2(8, 8)

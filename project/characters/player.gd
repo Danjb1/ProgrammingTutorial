@@ -63,10 +63,10 @@ func _was_recently_grounded(time_window: float) -> bool:
 	var time_since_grounded := Time.get_ticks_msec() - _last_grounded_timestamp
 	return time_since_grounded < time_window
 
-func _move() -> void:
+func _move(delta: float) -> void:
 	if is_on_floor():
 		_last_grounded_timestamp = Time.get_ticks_msec()
-	super._move()
+	super._move(delta)
 
 func _jump_pressed() -> void:
 	if _can_jump():
@@ -222,3 +222,7 @@ func _find_spell_position() -> Vector2:
 
 func get_inventory() -> Inventory:
 	return _inventory
+
+func kill() -> void:
+	# TODO: respawn
+	pass

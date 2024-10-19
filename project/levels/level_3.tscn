@@ -42,4 +42,3 @@ What am I doing with my life?[/center]"
 
 [node name="Player" parent="." instance=ExtResource("5_4cp1j")]
 position = Vector2(-640, 224)
-scale = Vector2(8, 8)

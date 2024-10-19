@@ -8,6 +8,9 @@ const HitEffectScene := preload("res://effects/spell_hit.tscn")
 func _physics_process(delta: float) -> void:
 	var collision := move_and_collide(velocity * delta)
 	if collision:
+		var target := collision.get_collider()
+		if target.has_method("_hit_by_projectile"):
+			target._hit_by_projectile(self)
 		_destroy_projectile(collision)
 
 func _destroy_projectile(collision: KinematicCollision2D) -> void:

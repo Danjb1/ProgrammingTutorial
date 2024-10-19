@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://b6lukmsuvyy1o" path="res://sounds/unlock.ogg" id="13_i8c4o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4nuj"]
-size = Vector2(5, 7)
+size = Vector2(40, 56)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5d6pf"]
 atlas = ExtResource("2_rxy1i")
@@ -215,13 +215,14 @@ collision_mask = 5
 script = ExtResource("1_le4c2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_b4nuj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(-0.5, 0)
+position = Vector2(-4, 0)
+scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_5o1og")
 animation = &"spell"
 autoplay = "idle"

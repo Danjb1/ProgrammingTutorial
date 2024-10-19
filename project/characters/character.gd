@@ -11,16 +11,19 @@ class JumpParams:
 ## Helper class used to store data about a tile collision.
 class TileCollision:
 	var tilemap: TileMapLayer
+	var collision: KinematicCollision2D
 	var collision_point: Vector2
 	var tile_coords: Vector2i
 	var tile_data: TileData
 
 	func _init(
 			p_tilemap: TileMapLayer,
+			p_collision: KinematicCollision2D,
 			p_collision_point: Vector2,
 			p_tile_coords: Vector2i,
 			p_tile_data: TileData):
 		tilemap = p_tilemap
+		collision = p_collision
 		collision_point = p_collision_point
 		tile_coords = p_tile_coords
 		tile_data = p_tile_data
@@ -64,7 +67,9 @@ var _collision_probe_depth := 0.1
 
 func _ready() -> void:
 	_collision_sampling_points = _find_collision_sampling_points()
-	call_deferred("_deferred_ready")
+	set_physics_process(false)
+	if not Engine.is_editor_hint():
+		call_deferred("_deferred_ready")
 
 ## Gets all points around the character - in local space - at which to check for tile collisions.
 ## This will need to be reworked for characters larger than 1 tile,
@@ -85,7 +90,6 @@ func _deferred_ready() -> void:
 	# Wait a while before enabling physics, to allow TileMap initialization.
 	# See: https://github.com/godotengine/godot/issues/67679
 	# We do this in a deferred callback so as not to stall the `ready` function.
-	set_physics_process(false)
 	for i in _PHYSICS_STARTUP_DELAY:
 		await get_tree().physics_frame
 	set_physics_process(true)
@@ -109,7 +113,7 @@ func _physics_process(delta: float) -> void:
 	var prev_velocity := velocity
 	_apply_gravity(delta)
 	_process_input()
-	_move()
+	_move(delta)
 	if prev_velocity.y <= 0.0 and velocity.y > 0.0:
 		_reached_jump_apex()
 
@@ -134,12 +138,14 @@ func _decelerate() -> void:
 	velocity.x = move_toward(velocity.x, 0, deceleration)
 
 ## Moves according to our current velocity.
-func _move() -> void:
+func _move(_delta: float) -> void:
 	_prepare_move()
 	var collided := move_and_slide()
 	if collided:
 		var collision = get_last_slide_collision()
 		_process_collision(collision)
+	if is_on_floor() and not _was_grounded:
+		_landed()
 
 func _prepare_move() -> void:
 	_was_grounded = is_on_floor()
@@ -149,8 +155,6 @@ func _process_collision(collision: KinematicCollision2D) -> void:
 	var tilemap := collision.get_collider() as TileMapLayer
 	if tilemap:
 		_process_collision_with_tilemap(collision, tilemap)
-	if is_on_floor() and not _was_grounded:
-		_landed()
 
 func _process_collision_with_tilemap(collision: KinematicCollision2D, tilemap: TileMapLayer):
 	_last_tile_collisions = _find_tile_collisions(collision, tilemap)
@@ -169,7 +173,8 @@ func _find_tile_collisions(
 		var tile_data := tilemap.get_cell_tile_data(tile_coords)
 		if not tile_data:
 			continue
-		var tile_collision := TileCollision.new(tilemap, collision_point, tile_coords, tile_data)
+		var tile_collision := TileCollision.new(
+				tilemap, collision, collision_point, tile_coords, tile_data)
 		tile_collisions.push_back(tile_collision)
 	return tile_collisions
 
@@ -184,8 +189,7 @@ func _suppress_landing() -> void:
 	_was_grounded = true
 
 func kill() -> void:
-	# TODO: Death
-	pass
+	queue_free()
 
 ## Calculates the jump parameters required to reach the given height in the given time.
 func _calc_jump_params_for_time(
@@ -227,7 +231,6 @@ func _calc_jump_params_for_speed(
 	#   (1) s = ut - at^2 / 2
 	#   (2) v = u + at
 	#
-	# Given v = 0 at the apex, (2) becomes:
 	#   t = -u/a
 	#
 	# Substituting into (1) and rearranging gives:

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=4 uid="uid://bbqhpm2lnofa2"]
+
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="1_rck3m"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="2_mqtyf"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="3_vd2rk"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="4_xj17n"]
+
+[node name="LevelRoot" type="Node2D" groups=["level"]]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_set = ExtResource("1_rck3m")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAD0//7/AAAAAAAAAAD0////AAAAAAAAAAD0/wAAAAAAAAAAAAD0//3/AAAAAAAAAAD1//3/AAAAAAAAAAD1////AAACAAAAAAD2////AAACAAAAAAD2//3/AAAAAAAAAAD1/wAAAAAAAAAAAAD2/wAAAAAAAAAAAAAKAP3/AAAAAAAAAAALAP3/AAAAAAAAAAALAP7/AAAAAAAAAAALAP//AAAAAAAAAAALAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAP3/AAAAAAAAAAAKAP//AAACAAAAAAAJAP//AAACAAAAAAD3/wAAAAAEAAAAAAD4/wAAAAAEAAAAAAAIAAAAAAAEAAAAAAAHAAAAAAAEAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD2/wMAAAAAAAAAAAD2/wQAAAAAAAAAAAD2/wUAAAAAAAAAAAD2//z/AAAAAAAAAAD2//v/AAAAAAAAAAD2//r/AAAAAAAAAAAJAPr/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAUAAAAAAAAAAAA=")
+tile_set = ExtResource("1_rck3m")
+
+[node name="AutoCamera" parent="." instance=ExtResource("2_mqtyf")]
+offset = Vector2(0, 24)
+
+[node name="Door1" parent="." instance=ExtResource("3_vd2rk")]
+position = Vector2(-688, -96)
+target_level = "res://levels/level_7.tscn"
+target_entrance = "Door2"
+
+[node name="Door2" parent="." instance=ExtResource("3_vd2rk")]
+position = Vector2(688, -96)
+target_level = "res://levels/level_9.tscn"
+target_entrance = "Door1"
+
+[node name="Player" parent="." instance=ExtResource("4_xj17n")]
+position = Vector2(-640, -96)
