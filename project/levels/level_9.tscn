@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=4 uid="uid://dmpdak0s1rje6"]
+
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="1_ufj16"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="2_50yxo"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="3_5wtxb"]
+[ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="4_cogw5"]
+[ext_resource type="Script" path="res://text/python_text_preprocessor.gd" id="5_213be"]
+[ext_resource type="PackedScene" uid="uid://dbcpp15omryg7" path="res://characters/snake.tscn" id="6_n585c"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="7_a7ks2"]
+
+[node name="LevelRoot" type="Node2D" groups=["level"]]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_set = ExtResource("1_ufj16")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAD0//7/AAAAAAAAAAD0////AAAAAAAAAAD0/wAAAAAAAAAAAAD0//3/AAAAAAAAAAD1//3/AAAAAAAAAAD1////AAACAAAAAAD2////AAACAAAAAAD2//3/AAAAAAAAAAD1/wAAAAAAAAAAAAD2/wAAAAAAAAAAAAAJAP3/AAAAAAAAAAD2/wEAAAAAAAAAAAD2//z/AAAAAAAAAAD2//v/AAAAAAAAAAD2//r/AAAAAAAAAAAJAPr/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAD8/wUAAAAAAAAAAAD9/wUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAD7/wUAAAAAAAAAAAD3//r/AAAAAAAAAAD4//r/AAAAAAAAAAD5//r/AAAAAAAAAAD6//r/AAAAAAAAAAD7//r/AAAAAAAAAAD8//r/AAAAAAAAAAD9//r/AAAAAAAAAAD+//r/AAAAAAAAAAD///r/AAAAAAAAAAAAAPr/AAAAAAAAAAABAPr/AAAAAAAAAAACAPr/AAAAAAAAAAADAPr/AAAAAAAAAAAEAPr/AAAAAAAAAAAFAPr/AAAAAAAAAAAGAPr/AAAAAAAAAAAHAPr/AAAAAAAAAAAIAPr/AAAAAAAAAAAIAPv/AAAAAAAAAAAHAPv/AAAAAAAAAAAGAPv/AAAAAAAAAAAFAPv/AAAAAAAAAAAEAPv/AAAAAAAAAAADAPv/AAAAAAAAAAACAPv/AAAAAAAAAAABAPv/AAAAAAAAAAAAAPv/AAAAAAAAAAD///v/AAAAAAAAAAD+//v/AAAAAAAAAAD9//v/AAAAAAAAAAD8//v/AAAAAAAAAAD7//v/AAAAAAAAAAD6//v/AAAAAAAAAAD5//v/AAAAAAAAAAD3//v/AAAAAAAAAAD4//v/AAAAAAAAAAD7/wQAAAAAAAAAAAD8/wQAAAACAAAAAAD9/wQAAAACAAAAAAABAAQAAAACAAAAAAACAAQAAAACAAAAAAADAAQAAAACAAAAAAAAAAUAAAAAAAAAAAD+/wUAAAAAAAAAAAD+/wQAAAACAAAAAAAAAAQAAAACAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAKAAUAAAAAAAAAAAAJAP7/AAAAAAAAAAAJAP//AAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAALAAIAAAAAAAAAAAALAAMAAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAD//wUAAAAAAAAAAAD//wQAAAACAAAAAAAEAAQAAAACAAAAAAAFAAQAAAACAAAAAAAGAAQAAAACAAAAAAAHAAQAAAACAAAAAAAIAAQAAAACAAAAAAAJAAQAAAACAAAAAAAKAAQAAAACAAAAAAAKAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAD3/wAAAAACAAAAAAD4/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD+/wIAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD3/wEAAAAAAAAAAAD+/wAAAAACAAAAAAD9/wAAAAACAAAAAAD8/wAAAAACAAAAAAD7/wAAAAACAAAAAAD6/wAAAAACAAAAAAD5/wAAAAACAAAAAAD4/wAAAAACAAAAAAAIAAEAAAAEAAAAAAAHAAEAAAAEAAAAAAAIAAIAAAAEAAAAAAA=")
+tile_set = ExtResource("1_ufj16")
+
+[node name="AutoCamera" parent="." instance=ExtResource("2_50yxo")]
+offset = Vector2(0, 24)
+
+[node name="Door1" parent="." instance=ExtResource("3_5wtxb")]
+position = Vector2(-688, -96)
+target_level = "res://levels/level_8.tscn"
+target_entrance = "Door2"
+
+[node name="Door2" parent="." instance=ExtResource("3_5wtxb")]
+position = Vector2(688, 224)
+target_level = "res://levels/level_10.tscn"
+target_entrance = "Door1"
+
+[node name="Book" parent="." instance=ExtResource("4_cogw5")]
+position = Vector2(-352, -64)
+popup_size = Vector2(70, 30)
+text = "[center]Hello world![/center]"
+
+[node name="Book2" parent="." instance=ExtResource("4_cogw5")]
+position = Vector2(-192, 192)
+popup_size = Vector2(100, 40)
+text = "[center]In Python:
+
+[python]print(\"hello world!\")[/python][/center]"
+text_preprocessor_scripts = Array[Script]([ExtResource("5_213be")])
+
+[node name="Book3" parent="." instance=ExtResource("4_cogw5")]
+position = Vector2(512, 0)
+popup_size = Vector2(120, 40)
+text = "[center]To run using a local Python interpreter:
+
+python YOUR_FILE.py[/center]"
+
+[node name="Player" parent="." instance=ExtResource("7_a7ks2")]
+position = Vector2(-608, -96)
+
+[node name="Snake" parent="." instance=ExtResource("6_n585c")]
+position = Vector2(416, 224)
+is_invulnerable = true
