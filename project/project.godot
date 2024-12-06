@@ -103,6 +103,7 @@ spell={
 2d_physics/layer_3="interactable"
 2d_physics/layer_4="projectile"
 2d_physics/layer_5="enemy"
+2d_physics/layer_6="smashable"
 
 [physics]
 

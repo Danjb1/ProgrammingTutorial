@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=4 uid="uid://m3m6ui05u2py"]
+
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="1_0d00d"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="2_g70ed"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="3_utt0a"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="4_5b5ry"]
+[ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="5_udkcv"]
+[ext_resource type="Script" path="res://text/python_text_preprocessor.gd" id="6_65xc5"]
+[ext_resource type="PackedScene" uid="uid://dbcpp15omryg7" path="res://characters/snake.tscn" id="7_rfp1k"]
+
+[node name="LevelRoot" type="Node2D" groups=["level"]]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_set = ExtResource("1_0d00d")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAAAAAUAAQAAAAAAAAD//wUAAQAAAAAAAAD+/wUAAQAAAAAAAAABAAUAAQAAAAAAAAAKAP3/AQAAAAAAAAALAP3/AQAAAAAAAAAMAP3/AQAAAAAAAAAMAP7/AQAAAAAAAAAMAP//AQAAAAAAAAALAP//AQAAAAAAAAAKAP//AQAAAAAAAAADAAUAAQAAAAAAAAACAAUAAQAAAAAAAAD9/wUAAQAAAAAAAAD8/wUAAQAAAAAAAAD7/wUAAQAAAAAAAAD6/wUAAQAAAAAAAAD5/wUAAQAAAAAAAAD4/wUAAQAAAAAAAAD3/wUAAQAAAAAAAAD2/wUAAQAAAAAAAAD2/wMAAQAAAAAAAAADAAMAAAAEAAAAAAACAAMAAQAAAAAAAAABAAMAAQAAAAAAAAAAAAMAAQAAAAAAAAD//wMAAQAAAAAAAAD+/wMAAQAAAAAAAAD9/wMAAQAAAAAAAAD8/wMAAQAAAAAAAAD7/wMAAQAAAAAAAAD6/wMAAQAAAAAAAAD5/wMAAQAAAAAAAAD4/wMAAQAAAAAAAAD3/wMAAQAAAAAAAAD1/wMAAQAAAAAAAAD1/wQAAQAAAAAAAAD1/wUAAQAAAAAAAAAEAPr/AQAAAAAAAAAEAPv/AQAAAAAAAAAEAP//AAAEAAAAAAAEAAEAAAAEAAAAAAAEAAMAAAAEAAAAAAAEAAUAAQAAAAAAAAAFAPr/AQAAAAAAAAAFAPv/AQAAAAAAAAAFAP//AAAEAAAAAAAFAAEAAAAEAAAAAAAFAAMAAQAAAAAAAAAFAAUAAQAAAAAAAAAGAPr/AQAAAAAAAAAGAPv/AQAAAAAAAAAGAP//AAAEAAAAAAAGAAEAAAAEAAAAAAAGAAMAAQAAAAAAAAAHAPr/AQAAAAAAAAAHAPv/AQAAAAAAAAAHAP//AQAAAAAAAAAHAAEAAQAAAAAAAAAHAAMAAQAAAAAAAAACAPr/AQAAAAAAAAACAPv/AQAAAAAAAAACAPz/AQAAAAAAAAACAP3/AQAAAAAAAAACAP7/AQAAAAAAAAACAP//AQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAADAPr/AQAAAAAAAAADAPv/AQAAAAAAAAADAP//AAAEAAAAAAADAAEAAAAEAAAAAAAHAPz/AQAAAAAAAAAHAP3/AQAAAAAAAAAHAAAAAQAAAAAAAAAHAAIAAQAAAAAAAAAIAP3/AQAAAAAAAAAJAP3/AQAAAAAAAAAJAP//AQAAAAAAAAAIAP//AQAAAAAAAAAFAAQAAQAAAAAAAAA=")
+tile_set = ExtResource("1_0d00d")
+
+[node name="AutoCamera" parent="." instance=ExtResource("2_g70ed")]
+offset = Vector2(0, 24)
+
+[node name="Door1" parent="." instance=ExtResource("3_utt0a")]
+position = Vector2(752, -96)
+target_level = "res://levels/level_16.tscn"
+target_entrance = "Door2"
+
+[node name="Door2" parent="." instance=ExtResource("3_utt0a")]
+position = Vector2(-624, 288)
+target_level = "res://levels/level_18.tscn"
+target_entrance = "Door1"
+
+[node name="Player" parent="." instance=ExtResource("4_5b5ry")]
+position = Vector2(672, -96)
+
+[node name="Book" parent="." instance=ExtResource("5_udkcv")]
+position = Vector2(320, -128)
+popup_size = Vector2(100, 40)
+text = "[center]This loop prints descending numbers from 10 to 1:[/center]
+
+[python]for i in range(10, 0, -1):
+    print(i)[/python]"
+text_preprocessor_scripts = Array[Script]([ExtResource("6_65xc5")])
+
+[node name="Snake" parent="." instance=ExtResource("7_rfp1k")]
+position = Vector2(288, 32)
+is_invulnerable = true
+should_start_facing_left = false
+
+[node name="Snake2" parent="." instance=ExtResource("7_rfp1k")]
+position = Vector2(352, 160)
+is_invulnerable = true

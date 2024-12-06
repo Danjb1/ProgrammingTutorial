@@ -1,7 +1,8 @@
 # License
 
 - Code in this repo is covered by the MIT license (below).
-- Some assets may be covered by other licenses - see [CREDITS.md](docs/CREDITS.md) for details.
+- Non-code assets (e.g. graphics and sounds) may not be re-used without permission.
+    - There are some exceptions to this - see [CREDITS.md](docs/CREDITS.md) for details.
 - Godot applications should be distributed with Godot's own [license](docs/GODOT_LICENSE.txt) and [copyright info](docs/GODOT_COPYRIGHT.txt).
 
 ## MIT License

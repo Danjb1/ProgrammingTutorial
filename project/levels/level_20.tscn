@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=4 uid="uid://cgpgfkdfgg2rm"]
+
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="1_yxj8m"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="2_72yen"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="3_j7efk"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="4_b45kh"]
+[ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="5_3yd3r"]
+[ext_resource type="Script" path="res://text/python_text_preprocessor.gd" id="6_2nqbt"]
+[ext_resource type="PackedScene" uid="uid://dbcpp15omryg7" path="res://characters/snake.tscn" id="7_tjtmc"]
+
+[node name="LevelRoot" type="Node2D" groups=["level"]]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_set = ExtResource("1_yxj8m")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAD3/wUABAAAAAAAAAD2/wUABAAAAAAAAAAEAPr/BAAAAAAAAAAFAPr/BAAAAAAAAAAGAPr/BAAAAAAAAAAHAPr/BAAAAAAAAAACAPr/BAAAAAAAAAADAPr/BAAAAAAAAAAJAP3/BAAAAAAAAAAJAP//BAAAAAAAAAD2//r/BAAAAAAAAAD3//r/BAAAAAAAAAD4//r/BAAAAAAAAAD5//r/BAAAAAAAAAD6//r/BAAAAAAAAAD7//r/BAAAAAAAAAD8//r/BAAAAAAAAAD9//r/BAAAAAAAAAD+//r/BAAAAAAAAAD///r/BAAAAAAAAAAAAPr/BAAAAAAAAAABAPr/BAAAAAAAAAAIAPr/BAAAAAAAAAAJAPr/BAAAAAAAAAAJAPv/BAAAAAAAAAAJAPz/BAAAAAAAAAAJAP7/BAAAAAAAAAAJAAAABAAAAAAAAAAJAAEABAAAAAAAAAAJAAIABAAAAAAAAAAJAAQABAABAAAAAAAJAAUABAAAAAAAAAD2//v/BAAAAAAAAAD2//z/BAAAAAAAAAD2//3/BAAAAAAAAAD2//7/BAAAAAAAAAD2////BAAAAAAAAAD2/wAABAAAAAAAAAD2/wEABAAAAAAAAAD2/wIABAAAAAAAAAD2/wQABAABAAAAAAAIAAUABAAAAAAAAAD3/wQABAABAAAAAAAIAAQABAABAAAAAAAKAAQABAABAAAAAAALAAQABAABAAAAAAAMAAQABAAAAAAAAAAMAAMABAAAAAAAAAAMAAIABAAAAAAAAAALAAIABAAAAAAAAAAKAAIABAAAAAAAAAAKAAUABAAAAAAAAAALAAUABAAAAAAAAAAMAAUABAAAAAAAAAD1/wIABAAAAAAAAAD0/wIABAAAAAAAAADz/wIABAAAAAAAAADz/wMABAAAAAAAAADz/wQABAAAAAAAAAD0/wQABAABAAAAAAD1/wQABAABAAAAAAD1/wUABAAAAAAAAAD0/wUABAAAAAAAAADz/wUABAAAAAAAAAAIAPv/BAAAAAAAAAAIAPz/BAAAAAAAAAD3//3/BAAAAAAAAAD3//z/BAAAAAAAAAD3//v/BAAAAAAAAAD4//v/BAAAAAAAAAD//wQABAABAAAAAAD//wUABAAAAAAAAAAAAAQABAABAAAAAAAAAAUABAAAAAAAAAD+/wQABAABAAAAAAAFAAQABAABAAAAAAAFAAUABAAAAAAAAAAHAAUABAAAAAAAAAAGAAUABAAAAAAAAAABAAUABAAAAAAAAAD+/wUABAAAAAAAAAABAAQABAABAAAAAAACAAQAAAAEAAAAAAAGAAQABAABAAAAAAAHAAQABAABAAAAAAD3/wAABAAAAAAAAAD3////BAAAAAAAAAD3//7/BAAAAAAAAAD4//7/BAAAAAAAAAD4//3/BAAAAAAAAAD4//z/BAAAAAAAAAD5//z/BAAAAAAAAAD5//v/BAAAAAAAAAD6//z/BAAAAAAAAAD6//v/BAAAAAAAAAD7//v/BAAAAAAAAAD8//v/BAAAAAAAAAD9//v/BAAAAAAAAAD+//v/BAAAAAAAAAD///v/BAAAAAAAAAD///z/BAAAAAAAAAAAAPz/BAAAAAAAAAAAAP3/BAAAAAAAAAABAPz/BAAAAAAAAAACAPz/BAAAAAAAAAADAPz/BAAAAAAAAAAEAPz/BAAAAAAAAAAEAPv/BAAAAAAAAAAFAPv/BAAAAAAAAAAGAPv/BAAAAAAAAAADAPv/BAAAAAAAAAACAPv/BAAAAAAAAAABAPv/BAAAAAAAAAAAAPv/BAAAAAAAAAAFAPz/BAAAAAAAAAAGAPz/BAAAAAAAAAAGAP3/BAAAAAAAAAAHAP3/BAAAAAAAAAAHAPz/BAAAAAAAAAAHAPv/BAAAAAAAAAAIAP3/BAAAAAAAAAAIAP7/BAAAAAAAAAAIAP//BAAAAAAAAAD4/wUABAAAAAAAAAD4/wQABAABAAAAAAD5/wQAAAAEAAAAAAD6/wQAAAAEAAAAAAD7/wQAAAAEAAAAAAD8/wQAAAAEAAAAAAD9/wQAAAAEAAAAAAADAAQAAAAEAAAAAAAEAAQAAAAEAAAAAAA=")
+tile_set = ExtResource("1_yxj8m")
+
+[node name="AutoCamera" parent="." instance=ExtResource("2_72yen")]
+offset = Vector2(0, 24)
+
+[node name="Door1" parent="." instance=ExtResource("3_j7efk")]
+position = Vector2(752, 224)
+target_level = "res://levels/level_19.tscn"
+target_entrance = "Door2"
+
+[node name="Door2" parent="." instance=ExtResource("3_j7efk")]
+position = Vector2(-752, 224)
+target_level = "res://levels/level_21.tscn"
+target_entrance = "Door1"
+
+[node name="Player" parent="." instance=ExtResource("4_b45kh")]
+position = Vector2(672, 224)
+
+[node name="Book" parent="." instance=ExtResource("5_3yd3r")]
+position = Vector2(448, 192)
+popup_size = Vector2(90, 50)
+text = "[python]if i % 2 == 0:
+    print(\"i is divisible by 2\")
+elif i % 3 == 0:
+    print(\"i is divisible by 3\")
+else:
+    print(\"i is NOT divisible by 2 OR 3\")[/python]"
+text_preprocessor_scripts = Array[Script]([ExtResource("6_2nqbt")])
+
+[node name="Book2" parent="." instance=ExtResource("5_3yd3r")]
+position = Vector2(0, 200)
+popup_size = Vector2(90, 30)
+text = "[python]if i % 2 == 0 and i % 3 == 0:
+    print(\"i is divisible by 2 AND 3\")[/python]"
+text_preprocessor_scripts = Array[Script]([ExtResource("6_2nqbt")])
+
+[node name="Snake" parent="." instance=ExtResource("7_tjtmc")]
+position = Vector2(-288, 224)
+is_invulnerable = true
+should_start_facing_left = false

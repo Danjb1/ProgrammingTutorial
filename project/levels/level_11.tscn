@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=4 uid="uid://dqdavlb6h53vq"]
+
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="1_ggvwb"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="2_hqs22"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="3_2777g"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="5_5p7d2"]
+
+[node name="LevelRoot" type="Node2D" groups=["level"]]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_set = ExtResource("1_ggvwb")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAACAAUAAQAAAAAAAAD9//r/AQAAAAAAAAACAPr/AQAAAAAAAAACAPv/AQAAAAAAAAD9//v/AQAAAAAAAAD9/wUAAQAAAAAAAAD9//z/AQAAAAAAAAD9//3/AQAAAAAAAAD9//7/AQAAAAAAAAD9////AQAAAAAAAAD9/wAAAQAAAAAAAAD9/wEAAQAAAAAAAAD9/wIAAQAAAAAAAAD9/wMAAQAAAAAAAAD9/wQAAQAAAAAAAAACAPz/AQAAAAAAAAACAP3/AQAAAAAAAAACAP7/AQAAAAAAAAACAP//AQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAACAAMAAQAAAAAAAAACAAQAAQAAAAAAAAABAPn/AQAAAAAAAAACAPn/AQAAAAAAAAABAPj/AQAAAAAAAAAAAPj/AQAAAAAAAAD+//n/AQAAAAAAAAD9//n/AQAAAAAAAAD///j/AQAAAAAAAAD///n/AQAAAAAAAAA=")
+tile_set = ExtResource("1_ggvwb")
+
+[node name="AutoCamera" parent="." instance=ExtResource("2_hqs22")]
+offset = Vector2(0, 24)
+
+[node name="Door1" parent="." instance=ExtResource("3_2777g")]
+position = Vector2(32, -432)
+rotation = 1.5708
+target_level = "res://levels/level_10.tscn"
+target_entrance = "Door2"
+
+[node name="Door2" parent="." instance=ExtResource("3_2777g")]
+position = Vector2(0, 368)
+rotation = 1.5708
+scale = Vector2(1, 3.96)
+target_level = "res://levels/level_11.tscn"
+target_entrance = "Door1"
+
+[node name="Player" parent="." instance=ExtResource("5_5p7d2")]
+position = Vector2(32, -376)

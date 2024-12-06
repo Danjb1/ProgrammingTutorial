@@ -1,8 +1,6 @@
 # Credits
 
-## Code
-
-- [Danjb1](https://github.com/Danjb1)
+Except any listed below, all code and assets are made by [Danjb1](https://github.com/Danjb1).
 
 ## Assets
 

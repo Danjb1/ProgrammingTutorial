@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=4 uid="uid://bknf4mdr8ms8h"]
+
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="1_qhy7m"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="2_8v5ts"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="3_4qugd"]
+[ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="4_4qcln"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="6_mej41"]
+
+[node name="LevelRoot" type="Node2D" groups=["level"]]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAD//wEAAwAAAAAAAAD//wIAAwAAAAEAAAADAAEAAwAAAAAAAAADAAIAAwAAAAEAAAD9/wEAAwAAAAAAAAD9/wIAAwAAAAEAAAAFAAEAAwAAAAAAAAAFAAIAAwAAAAEAAAA=")
+tile_set = ExtResource("1_qhy7m")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAD0//7/AAAAAAAAAAD0////AAAAAAAAAAD0/wAAAAAAAAAAAAD0//3/AAAAAAAAAAD1//3/AAAAAAAAAAD1////AAACAAAAAAD2////AAACAAAAAAD2//3/AAAAAAAAAAD1/wAAAAAAAAAAAAD2/wAAAAAAAAAAAAAJAP3/AAAAAAAAAAD2/wEAAAAAAAAAAAD2//z/AAAAAAAAAAD2//v/AAAAAAAAAAD2//r/AAAAAAAAAAAJAPr/AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAD3//r/AAAAAAAAAAD4//r/AAAAAAAAAAD5//r/AAAAAAAAAAD6//r/AAAAAAAAAAD7//r/AAAAAAAAAAD8//r/AAAAAAAAAAD9//r/AAAAAAAAAAD+//r/AAAAAAAAAAD///r/AAAAAAAAAAAAAPr/AAAAAAAAAAABAPr/AAAAAAAAAAACAPr/AAAAAAAAAAADAPr/AAAAAAAAAAAEAPr/AAAAAAAAAAAFAPr/AAAAAAAAAAAGAPr/AAAAAAAAAAAHAPr/AAAAAAAAAAAIAPr/AAAAAAAAAAAIAPv/AAAAAAAAAAAHAPv/AAAAAAAAAAAGAPv/AAAAAAAAAAAFAPv/AAAAAAAAAAAEAPv/AAAAAAAAAAADAPv/AAAAAAAAAAACAPv/AAAAAAAAAAABAPv/AAAAAAAAAAAAAPv/AAAAAAAAAAD///v/AAAAAAAAAAD+//v/AAAAAAAAAAD9//v/AAAAAAAAAAD8//v/AAAAAAAAAAD7//v/AAAAAAAAAAD6//v/AAAAAAAAAAD5//v/AAAAAAAAAAD3//v/AAAAAAAAAAD4//v/AAAAAAAAAAD8/wQAAAACAAAAAAD9/wQAAAACAAAAAAABAAQAAAACAAAAAAACAAQAAAACAAAAAAADAAQAAAACAAAAAAAAAAUAAAAAAAAAAAD+/wUAAAAAAAAAAAD+/wQAAAACAAAAAAAAAAQAAAACAAAAAAAFAAUAAAAAAAAAAAAGAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAP7/AAAAAAAAAAAJAP//AAAAAAAAAAAJAAAAAAAAAAAAAAAJAAEAAAAAAAAAAAD//wUAAAAAAAAAAAD//wQAAAACAAAAAAAEAAQAAAACAAAAAAAFAAQAAAACAAAAAAAGAAQAAAACAAAAAAAJAAQAAAAAAAAAAAAJAAIAAAAAAAAAAAD3/wAAAAACAAAAAAD5/wIAAAACAAAAAAD3/wEAAAAAAAAAAAD4/wIAAAAAAAAAAAD6/wMAAAACAAAAAAD4/wEAAAACAAAAAAD7/wQAAAACAAAAAAD9/wUAAAAAAAAAAAD8/wUAAAAAAAAAAAD7/wUAAAAAAAAAAAD6/wUAAAAAAAAAAAD6/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAD5/wMAAAAAAAAAAAD4/wMAAAAAAAAAAAD3/wIAAAAAAAAAAAAJAAMAAAAAAAAAAAAHAAQAAAACAAAAAAAHAAUAAAAAAAAAAAAIAAQAAAAEAAAAAAA=")
+tile_set = ExtResource("1_qhy7m")
+
+[node name="AutoCamera" parent="." instance=ExtResource("2_8v5ts")]
+offset = Vector2(0, 24)
+
+[node name="Door1" parent="." instance=ExtResource("3_4qugd")]
+position = Vector2(-688, -96)
+target_level = "res://levels/level_9.tscn"
+target_entrance = "Door2"
+
+[node name="Door2" parent="." instance=ExtResource("3_4qugd")]
+position = Vector2(544, 368)
+rotation = 1.5708
+target_level = "res://levels/level_11.tscn"
+target_entrance = "Door1"
+
+[node name="Book" parent="." instance=ExtResource("4_4qcln")]
+position = Vector2(96, 192)
+popup_size = Vector2(70, 30)
+text = "[center][wave amp=30.0 freq=5.0 connected=1]Congratulations![/wave][/center]"
+
+[node name="Player" parent="." instance=ExtResource("6_mej41")]
+position = Vector2(-608, -96)

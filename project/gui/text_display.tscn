@@ -14,6 +14,7 @@ offset_left = -0.5
 offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/line_separation = 5
 bbcode_enabled = true
 scroll_active = false
 autowrap_mode = 0

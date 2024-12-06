@@ -1,7 +1,11 @@
-[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://nkkfcnpmv4n6"]
+[gd_resource type="TileSet" load_steps=14 format=3 uid="uid://nkkfcnpmv4n6"]
 
 [ext_resource type="Texture2D" uid="uid://cruauno2kmwlk" path="res://textures/castle_tileset.png" id="1_seiuc"]
+[ext_resource type="Texture2D" uid="uid://c4j7h4sqs2lgl" path="res://textures/dungeon_tileset.png" id="2_jo5s5"]
+[ext_resource type="Texture2D" uid="uid://dlo6bv2e4a4pl" path="res://textures/dungeon_bg_tileset.png" id="3_h3whj"]
 [ext_resource type="Texture2D" uid="uid://cafbxa0qq1nff" path="res://textures/castle_bg_tileset.png" id="3_oxy0t"]
+[ext_resource type="Texture2D" uid="uid://dwwuv24tb8u4k" path="res://textures/fire_tileset.png" id="5_8og0t"]
+[ext_resource type="Texture2D" uid="uid://f6ielia10np5" path="res://textures/fire_bg_tileset.png" id="6_1a3xu"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_5hgyy"]
 tile_data = PackedInt32Array(0, 3, 0, 65536, 3, 1)
@@ -27,13 +31,49 @@ texture_region_size = Vector2i(8, 8)
 5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 5:0/0/custom_data_1 = 1
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b8ee3"]
+resource_name = "dungeon"
+texture = ExtResource("2_jo5s5")
+separation = Vector2i(1, 1)
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pjpie"]
+resource_name = "dungeon background"
+texture = ExtResource("3_h3whj")
+separation = Vector2i(1, 1)
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_atn5t"]
-resource_name = "background"
+resource_name = "castle background"
 texture = ExtResource("3_oxy0t")
 separation = Vector2i(1, 1)
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
 0:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6qhdc"]
+texture = ExtResource("5_8og0t")
+separation = Vector2i(1, 0)
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+2:0/0 = 0
+3:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h8esa"]
+texture = ExtResource("6_1a3xu")
+separation = Vector2i(1, 1)
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
 
 [resource]
 tile_size = Vector2i(8, 8)
@@ -44,4 +84,8 @@ custom_data_layer_1/name = "lock_id"
 custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_jk8o5")
 sources/3 = SubResource("TileSetAtlasSource_atn5t")
+sources/1 = SubResource("TileSetAtlasSource_b8ee3")
+sources/2 = SubResource("TileSetAtlasSource_pjpie")
+sources/4 = SubResource("TileSetAtlasSource_6qhdc")
+sources/5 = SubResource("TileSetAtlasSource_h8esa")
 pattern_0 = SubResource("TileMapPattern_5hgyy")

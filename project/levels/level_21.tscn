@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=4 uid="uid://bqufy4af2fji2"]
+
+[ext_resource type="TileSet" uid="uid://nkkfcnpmv4n6" path="res://tilesets/castle_tile_set.tres" id="1_yxj8m"]
+[ext_resource type="PackedScene" uid="uid://5sa7d7ioot5g" path="res://objects/auto_camera.tscn" id="2_72yen"]
+[ext_resource type="PackedScene" uid="uid://d4k7xx0cgl7t4" path="res://objects/door.tscn" id="3_j7efk"]
+[ext_resource type="PackedScene" uid="uid://bqw1g0yoe1ga7" path="res://characters/player.tscn" id="4_b45kh"]
+[ext_resource type="PackedScene" uid="uid://b25c5ux53rlrp" path="res://objects/book.tscn" id="5_3yd3r"]
+[ext_resource type="Script" path="res://text/python_text_preprocessor.gd" id="6_2nqbt"]
+[ext_resource type="PackedScene" uid="uid://bo07mgo873qlj" path="res://objects/moving_platform.tscn" id="7_222jb"]
+
+[node name="LevelRoot" type="Node2D" groups=["level"]]
+
+[node name="BackgroundLayer" type="TileMapLayer" parent="."]
+z_index = -100
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_set = ExtResource("1_yxj8m")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(8, 8)
+tile_map_data = PackedByteArray("AAAJAAQABAABAAAAAAAJAAUABAAAAAAAAAAKAAQABAABAAAAAAALAAQABAABAAAAAAAMAAQABAAAAAAAAAAMAAMABAAAAAAAAAAMAAIABAAAAAAAAAALAAIABAAAAAAAAAAKAAUABAAAAAAAAAALAAUABAAAAAAAAAAMAAUABAAAAAAAAAD6//7/BAABAAAAAAD5//7/BAABAAAAAAD4//7/BAABAAAAAAD3//7/BAABAAAAAAD1//z/BAAAAAAAAAD0//z/BAAAAAAAAAD0//3/BAAAAAAAAAD2//z/BAAAAAAAAAD2//v/BAAAAAAAAAD2//r/BAAAAAAAAAD0//7/BAAAAAAAAAD1//7/BAAAAAAAAAD2//7/BAAAAAAAAAD2////BAAAAAAAAAD3////BAAAAAAAAAD4////BAAAAAAAAAD5////BAAAAAAAAAD6////BAAAAAAAAAD6/wAABAAAAAAAAAD6/wEABAAAAAAAAAD6/wIABAAAAAAAAAD6/wMABAAAAAAAAAD6/wQABAAAAAAAAAD6/wUABAAAAAAAAAAKAAIABAAAAAAAAAAIAAQABAABAAAAAAAIAAUABAAAAAAAAAD5/wAABAAAAAAAAAD5/wEABAAAAAAAAAD5/wIABAAAAAAAAAD5/wMABAAAAAAAAAD5/wQABAAAAAAAAAD5/wUABAAAAAAAAAD4/wUABAAAAAAAAAD4/wQABAAAAAAAAAD4/wMABAAAAAAAAAD4/wIABAAAAAAAAAD4/wEABAAAAAAAAAD4/wAABAAAAAAAAAD3/wAABAAAAAAAAAD3/wEABAAAAAAAAAD3/wIABAAAAAAAAAD3/wMABAAAAAAAAAD3/wQABAAAAAAAAAD3/wUABAAAAAAAAAD2/wUABAAAAAAAAAD2/wQABAAAAAAAAAD2/wMABAAAAAAAAAD2/wIABAAAAAAAAAD2/wEABAAAAAAAAAD2/wAABAAAAAAAAAAKAAEABAAAAAAAAAAKAAAABAAAAAAAAAAKAP//BAAAAAAAAAAKAP7/BAAAAAAAAAAKAP3/BAAAAAAAAAAKAPz/BAAAAAAAAAAKAPv/BAAAAAAAAAAKAPr/BAAAAAAAAAAKAPn/BAAAAAAAAAAJAPn/BAAAAAAAAAAIAPn/BAAAAAAAAAAHAPn/BAAAAAAAAAAGAPn/BAAAAAAAAAAFAPn/BAAAAAAAAAAEAPn/BAAAAAAAAAADAPn/BAAAAAAAAAACAPn/BAAAAAAAAAABAPn/BAAAAAAAAAAAAPn/BAAAAAAAAAD///n/BAAAAAAAAAD+//n/BAAAAAAAAAD9//n/BAAAAAAAAAD8//n/BAAAAAAAAAD7//n/BAAAAAAAAAD6//n/BAAAAAAAAAD5//n/BAAAAAAAAAD4//n/BAAAAAAAAAD3//n/BAAAAAAAAAD2//n/BAAAAAAAAAA=")
+tile_set = ExtResource("1_yxj8m")
+
+[node name="AutoCamera" parent="." instance=ExtResource("2_72yen")]
+offset = Vector2(0, 24)
+
+[node name="Door1" parent="." instance=ExtResource("3_j7efk")]
+position = Vector2(752, 224)
+target_level = "res://levels/level_20.tscn"
+target_entrance = "Door2"
+
+[node name="Door2" parent="." instance=ExtResource("3_j7efk")]
+position = Vector2(-688, -160)
+target_level = "res://levels/level_22.tscn"
+target_entrance = "Door1"
+
+[node name="Player" parent="." instance=ExtResource("4_b45kh")]
+position = Vector2(672, 224)
+
+[node name="Book" parent="." instance=ExtResource("5_3yd3r")]
+position = Vector2(-448, -192)
+popup_size = Vector2(90, 60)
+text = "[python]for i in range(1, 101):
+    if i % 3 == 0 and i % 5 == 0:
+        print(\"FizzBuzz\")
+    elif i % 3 == 0:
+        print(\"Fizz\")
+    elif i % 5 == 0:
+        print(\"Buzz\")
+    else:
+        print(i)[/python]"
+text_preprocessor_scripts = Array[Script]([ExtResource("6_2nqbt")])
+
+[node name="MovingPlatform" parent="." instance=ExtResource("7_222jb")]
+position = Vector2(0, 272)
+target_position = Vector2(256, 0)
+
+[node name="MovingPlatform2" parent="." instance=ExtResource("7_222jb")]
+position = Vector2(-128, -48)
+target_position = Vector2(0, 256)

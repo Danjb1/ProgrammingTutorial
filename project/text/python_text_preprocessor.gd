@@ -4,7 +4,11 @@ extends TextPreprocessor
 
 const _python_keywords: PackedStringArray = [
 	"if",
+	"elif",
+	"and",
 	"for",
+	"else",
+	"in",
 	"while",
 	"def",
 	"return",
@@ -18,10 +22,14 @@ var _python_tags_re := RegEx.new()
 ## Regex to find Python keywords.
 var _keywords_re := RegEx.new()
 
+## Regex to find numerical constants.
+var _numbers_re := RegEx.new()
+
 ## Regex to find quoted strings: "...".
 var _quotes_re := RegEx.new()
 
 func _init() -> void:
+	# Compile Python tags regex
 	var error := _python_tags_re.compile(
 		r"(?s)"				# Dotall flag (match newlines)
 		+ r"\[python\]"		# [python] opening tag
@@ -30,15 +38,22 @@ func _init() -> void:
 	)
 	assert(not error, "Error compiling Python tags regex: %s" % error)
 
-	# Compile all keywords into one giant regex.
-	# A trailing space is included with each keyword to prevent accidental
-	# keyword highlighting in variable names.
+	# Compile all Python keywords into one giant regex.
+	# Each keyword must be followed by whitespace to prevent accidental
+	# highlighting inside functions and variable names.
 	error = _keywords_re.compile(
 		r"("									# (
-		+ r" )|(".join(_python_keywords)		# ... )|(...
+		+ r")|(".join(_python_keywords)			# ...)|(...
 		+ r")")									# )
 	assert(not error, "Error compiling Python keywords regex: %s" % error)
 
+	# Compile numbers regex
+	error = _numbers_re.compile(
+		r"\d+"
+	)
+	assert(not error, "Error compiling Python numbers regex: %s" % error)
+
+	# Compile quotes regex
 	error = _quotes_re.compile(
 		r"\""			# Opening quote: "
 		+ ".*"			# Any characters (non-greedy)
@@ -86,11 +101,14 @@ func _replace_matches(
 	var current_pos := 0
 	for i in results.size():
 		var tag := results[i]
+		if not is_valid_match(text, tag):
+			continue
 		var tag_start := tag.get_start(0)
 		var tag_end := tag.get_end(0)
 		# Add all chars from the original text, up to the start of the current tag
 		var substr_len := tag_start - current_pos
-		new_text += text.substr(current_pos, substr_len)
+		var matched_text := text.substr(current_pos, substr_len)
+		new_text += matched_text
 		# Add the replacement text
 		new_text += replacements[i]
 		# Skip over the tag
@@ -102,11 +120,27 @@ func _replace_matches(
 ## Gets the replacement text for a Python tag.
 func _replace_python_tag(text: String) -> String:
 	var new_text := _regex_replace(text, _keywords_re, "_replace_keyword")
+	new_text = _regex_replace(new_text, _numbers_re, "_replace_number")
 	new_text = _regex_replace(new_text, _quotes_re, "_replace_quote")
 	return new_text
 
 func _replace_keyword(text: String) -> String:
-	return "[color=CRIMSON]" + text + " [/color]"
+	return "[color=CRIMSON]" + text + "[/color]"
+
+func _replace_number(text: String) -> String:
+	return "[color=DARK_TURQUOISE]" + text + "[/color]"
 
 func _replace_quote(text: String) -> String:
 	return "[color=GOLD]" + text + "[/color]"
+
+func is_valid_match(text: String, p_match: RegExMatch) -> bool:
+	# This is a horrible hack to stop us highlighting the "in" in "print".
+	# To properly fix this we would need a much more sophisticated mechanism
+	# to tokenize Python code.
+	var match_start := p_match.get_start(0)
+	var match_end := p_match.get_end(0)
+	var substr_len := match_end - match_start
+	var matched_text = text.substr(match_start, substr_len)
+	if matched_text == "in":
+		return text[match_end] != "t"
+	return true
