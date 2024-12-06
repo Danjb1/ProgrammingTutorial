@@ -36,9 +36,9 @@ target_entrance = "Door1"
 
 [node name="Book" parent="." instance=ExtResource("5_tnv1s")]
 position = Vector2(-32, 128)
-text = "[center]I made a whole game just for this video.
-
-What am I doing with my life?[/center]"
+popup_size = Vector2(100, 35)
+text = "[center]I figured a game was more
+interesting than a Powerpoint...[/center]"
 
 [node name="Player" parent="." instance=ExtResource("5_4cp1j")]
 position = Vector2(-640, 224)
